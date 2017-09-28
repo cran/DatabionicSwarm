@@ -1,5 +1,4 @@
-#include <Rcpp.h>
-//#include <RcppArmadillo.h>
+#include <RcppArmadillo.h>
 using namespace Rcpp;
 using namespace std;
 using namespace sugar;

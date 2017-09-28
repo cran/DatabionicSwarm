@@ -1,7 +1,7 @@
 \name{DijkstraSSSP}
 \alias{DijkstraSSSP}
 \title{
-Dijkstra SSSP
+Internal function: Dijkstra SSSP
 }
 \description{
 Dijkstra's SSSP (Single source shortest path) algorithm:
@@ -26,6 +26,7 @@ int, vertice(point) from which to calculate the geodesic distance to all other p
 \details{
 Preallocating space for DataStructures accordingly to the maximum possible number of vertices which is fixed set at 
 the number 10001.
+This is an internal function of \code{\link{ShortestGraphPathsC}}, no errors or mis-usage is caught here.
 }
 \value{
 ShortestPaths[1:n]   vector, shortest paths (geodesic) to all other vertices including the source vertice itself

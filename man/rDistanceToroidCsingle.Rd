@@ -2,7 +2,7 @@
 \alias{rDistanceToroidCsingle}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-intern function for \code{\link{pswarmCpp}}
+Intern function for \code{\link{Pswarm}}
 }
 \description{
 toroid distance calculation
@@ -31,7 +31,7 @@ Michael Thrun
 }
 
 \seealso{
-\code{\link{pswarmCpp}}
+\code{\link{Pswarm}}
 }
 
 \keyword{toroid}% use one of  RShowDoc("KEYWORDS")

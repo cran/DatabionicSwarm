@@ -2,10 +2,10 @@
 \alias{setPolarGrid}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-sets the polar grid
+Intern function: Sets the polar grid
 }
 \description{
-sets a polar grid for a swarm in an rectangular shape
+Sets a polar grid for a swarm in an rectangular shape
 }
 \usage{
 setPolarGrid(Lines,Columns,QuadOrHexa,PlotIt,global)
@@ -31,7 +31,7 @@ list of
 Michael Thrun
 }
 \seealso{
-\code{\link{pswarmCpp}}
+\code{\link{Pswarm}}
 }
 
 \keyword{hexagonal}% use one of  RShowDoc("KEYWORDS")

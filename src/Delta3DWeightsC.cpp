@@ -1,22 +1,24 @@
 #include <RcppArmadillo.h>
-//using namespace Rcpp;
 
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::export]]
-arma::cube Delta3DWeightsC(Rcpp::NumericVector vx,Rcpp::NumericVector Datasample) {
+arma::cube Delta3DWeightsC(arma::cube vx,Rcpp::NumericVector Datasample) {
+  /* Beware of changes:
+   * This function was existing 2 times before refactoring by FP
+   * and they differed by input type (NumericVector instead of cube)
+   * 
+   * now just the arma::cube variant was kept. This SHOULD work.
+   * If problems arise: make another with original input type, 
+   * rename the parameter just x and add the 2 lines
+   * of code below as the function with rcpp export annotated.
+   * This function stays for internal use in trainstepC
+   */
+  //Rcpp::IntegerVector vx_dims = x.attr("dim");
+  //arma::cube vx(x.begin(), vx_dims[0], vx_dims[1], vx_dims[2], false);
   
-  Rcpp::IntegerVector x_dims = vx.attr("dim");
-  arma::cube x(vx.begin(), x_dims[0], x_dims[1], x_dims[2], false);
-  //std::cout<<Datasample.length()<<" "<<x.n_slices<<std::endl;
-  //std::cout<<x.slice(0)(1,1)<<std::endl;
-  //std::cout<<x(1,1,2)<<std::endl;
-  //arma::mat result(x.n_rows, x.n_cols);;
-  for (unsigned int i = 0; i < x.n_slices; i++) {
-    //std::fill(result.begin(),result.end(),Datasample(i));
-    //x.slice(i)=x.slice(i)-result;
-    x.slice(i)=x.slice(i)-Datasample(i);
-//result.col(i) = arma::conv_to<arma::colvec>::from(arma::mean(x.slice(i)));  
+  for (unsigned int i = 0; i < vx.n_slices; i++) {
+    vx.slice(i)=vx.slice(i)-Datasample(i);
   }
   
-  return x;
+  return vx;
 }

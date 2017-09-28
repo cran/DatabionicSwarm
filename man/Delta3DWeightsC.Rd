@@ -2,10 +2,10 @@
 \alias{Delta3DWeightsC}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-intern function
+Intern function
 }
 \description{
-implementation of the main formula of SOM, ESOM,sESOM algorithms}
+Implementation of the main equation for SOM, ESOM or the sESOM algorithms}
 \usage{
 Delta3DWeightsC(vx,Datasample)
 }
@@ -15,13 +15,15 @@ Delta3DWeightsC(vx,Datasample)
     \item{Datasample}{NumericVector of one Datapoint[1:n]}
 }
 \details{
-intern function in case of \code{ComputeInR==FALSE} in \code{\link{GeneratePswarmVisualization}}
+intern function in case of \code{ComputeInR==FALSE} in \code{\link{GeneratePswarmVisualization}},
+see chapter 5.3 of [Thrun, 2017] for generalized Umatrix and especially the \code{sESOM4BMUs} algorithm.
 }
 \value{
 modified array of weights [1:Lines,1:Columns,1:]
 }
 \references{
-thesis
+[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation, Springer (in print), Heidelberg, 2017.
+
 }
 \author{
 Michael Thrun

@@ -1,10 +1,10 @@
 \name{DBSclustering}
 \alias{DBSclustering}
 \title{
-automated Clustering approach of the Databonic swarm with abstact U distances
+Databonic swarm clustering (DBS)
 }
 \description{
-automated Clustering approach of the Databonic swarm with abstact U distances, which
+Automated Clustering approach of the Databonic swarm with abstact U distances, which
 are the geodesic distances based on high-dimensional distances combined with low dimensional graph paths by using \code{ShortestGraphPathsC}.
 }
 \usage{
@@ -13,7 +13,7 @@ DBSclustering(k, Data, BestMatches, LC, StructureType = TRUE, PlotIt = FALSE,
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{k}{number of clusters, how many to you see in the 3d landscape?}
+  \item{k}{number of clusters, how many to you see in the topographic map (3D landscape)?}
   \item{Data}{[1:n,1:d] Matrix of Data (n cases, d dimensions) that will be used. One DataPoint per row}
   \item{BestMatches}{[1:n,1:2] Matrix with positions of Bestmatches=ProjectedPoints, one matrix line per data point}
   \item{LC}{grid size c(Lines,Columns)}
@@ -22,7 +22,7 @@ DBSclustering(k, Data, BestMatches, LC, StructureType = TRUE, PlotIt = FALSE,
   \item{method}{Optional, distance method,  do not change}
 }
 \details{
-DBS is a flexible and robust clustering framework that consists
+ DBS is a flexible and robust clustering framework that consists
  of three independent modules. The first module is the parameter-free
  projection method Pswarm \code{\link{Pswarm}}, which exploits the concepts of self-organization
  and emergence, game theory, swarm intelligence and symmetry considerations. 
@@ -36,7 +36,7 @@ DBS is a flexible and robust clustering framework that consists
 Cls                 [1:n] vector with selected classes of the bestmatches. You can use \code{plotTopographicMap(Umatrix,Bestmatches,Cls)} for verification.
 }
 \references{
-[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, (Doctoral dissertation), Philipps-Universität Marburg, Marburg, 2017.
+[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation, Springer (in print), Heidelberg, 2017.
 
 [Thrun/Ultsch, 2017] Thrun, M.C., Ultsch, A.: Projection based Clustering, Conf. Int. Federation of Classification Societies (IFCS),DOI:10.13140/RG.2.2.13124.53124, Tokyo, 2017.
 
@@ -45,10 +45,10 @@ Cls                 [1:n] vector with selected classes of the bestmatches. You c
 Michael Thrun
 }
 \note{
-If you used pswarm with distance matrix instead of a data matrix you can mds transform your distances into data. The correct dimension can be found through the Sheppard diagram or kruskals stress.
+If you used pswarm with distance matrix instead of a data matrix you may transform your distances into data by using \code{MDS} of the ProjectionBasedClustering package. The correct dimension can be found through the Sheppard diagram or kruskals stress.
 
 Often it is better to mark the outliers  manually after the prozess of clustering and sometimes a clustering can be improved through human interaction [Thrun/Ultsch,2017] <DOI:10.13140/RG.2.2.13124.53124>; use in this case the visualization \code{plotTopographicMap} of the package GeneralizedUmatrix. If you would like to mark the outliers interactivly in the visualization use the Umatrix package in \url{https://www.uni-marburg.de/fb12/datenbionik/software-en}
-or the function interactiveClustering() of the ProjectionBasedClustering package on CRAN.
+or the function \code{interactiveClustering()} of the ProjectionBasedClustering package on CRAN.
 }
 \examples{
 data("Lsun3D")
@@ -69,7 +69,7 @@ projection$ProjectedPoints,projection$LC)
 ## thorugh an interactive approach, 
 ## e.g. if Outliers exist (see [Thrun/Ultsch, 2017])
 library(ProjectionBasedClustering)
-Cls2=interactiveClustering(visualization$Umatrix, 
+Cls2=ProjectionBasedClustering::interactiveClustering(visualization$Umatrix, 
 visualization$Bestmatches, Cls)
 }
 \dontshow{

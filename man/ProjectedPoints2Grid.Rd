@@ -15,7 +15,7 @@ ProjectedPoints2Grid(ProjectedPoints, Lines, Columns,PlotIt)
   \item{ProjectedPoints}{[1:n,1:2] matrix of cartesian xy coordinates}
   \item{Lines}{double, length of small side of the rectangular grid}
   \item{Columns}{double, length of big side of the rectangular grid}
-  \item{PlotIt}{optional, bool, show the result?}
+  \item{PlotIt}{optional, bool, shows the result if TRUE}
 }
 \details{
 intern function
@@ -25,7 +25,7 @@ BestMatches[1:n,1:3] columns in order: Key,Lines,Columns
 }
 
 \author{
-Michael Thrunb
+Michael Thrun
 
 }
 \seealso{\code{\link{GeneratePswarmVisualization}}

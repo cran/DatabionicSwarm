@@ -1,15 +1,16 @@
 \name{getCartesianCoordinates}
 \alias{getCartesianCoordinates}
-\title{ Transform DataBot Indizes two exac cartesian coordinates on an toroid two dimensional grid. }
+\title{Intern function: Transformation of Databot indizes to coordinates}
 \arguments{
-\item{DataBotsPos[1:AnzData]}{complex vector Two Indizes per Databot describing its positions in an two dimensional grid}
-\item{GridRadius[Lines,Columns]}{Radii Matrix of all possible Positions of DataBots in Grid, see als Doku of setPolarGrid()}
-\item{GridAngle[Lines,Columns]}{Angle Matrix of all possible Positions of DataBots in Grid, see als Doku of setPolarGrid()}
+\item{DataBotsPos[1:N]}{complex vector Two Indizes per Databot describing its positions in an two dimensional grid}
+\item{GridRadius[Lines,Columns]}{Radii Matrix of all possible Positions of DataBots in Grid, see also documentation of \code{\link{setPolarGrid}}}
+\item{GridAngle[Lines,Columns]}{Angle Matrix of all possible Positions of DataBots in Grid, see also documentation of \code{\link{setPolarGrid}}}
 \item{Lines,Columns}{Size of planar toroid two dimensional grid}
-\item{QuadOrHexa}{FALSE=If DataPos on hexadiagonal grid, runde auf 2 nachkommestellen, Default=TRUE}
+\item{QuadOrHexa}{Optional, FALSE=If DataPos on hexadiagonal grid, round to 2 decimals after value, Default=TRUE}
 }
-\value{BestMatchingUnits[1:AnzData,2]         coordinates on an two dimensional grid for each databot excluding unique key, sucht that}
+\value{BestMatchingUnits[1:N,2]         coordinates on an two dimensional grid for each databot excluding unique key, such that
+ by using \code{\link{GeneratePswarmVisualization}} a visualization of the Pswarm projection is possible}
 \description{
- Transform DataBot Indizes two exac cartesian coordinates on an toroid two dimensional grid. }
+Transforms Databot indizes to exact cartesian coordinates on an toroid two dimensional grid. }
 \author{
-MT 01/2015}
+Michael Thrun}

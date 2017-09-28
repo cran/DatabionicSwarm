@@ -2,10 +2,10 @@
 \alias{trainstepC}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-internal function for s-esom
+Internal function for sESOM
 }
 \description{
-Does the training for fixed bestmatches in one epoch of the s-esom.
+Does the training for fixed bestmatches in one epoch of the sESOM algorithm.
 }
 \usage{
 trainstepC(vx,vy, DataSampled,BMUsampled,Lines,Columns, Radius, toroid)
@@ -22,7 +22,7 @@ trainstepC(vx,vy, DataSampled,BMUsampled,Lines,Columns, Radius, toroid)
 }
 \value{WeightVectors, array[1:Lines,1:Columns,1:weights] with the adjusted Weights}
 \references{
-thesis
+[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation, Springer (in print), Heidelberg, 2017.
 }
 \author{
 Michael Thrun

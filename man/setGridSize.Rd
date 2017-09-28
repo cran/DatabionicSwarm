@@ -2,10 +2,10 @@
 \alias{setGridSize}
 
 \title{
- sets the grid size for the Pswarm algorithm
+ Sets the grid size for the Pswarm algorithm
 }
 \description{
-automatically sets the size of the grid, formula see phd thesis
+Automatically sets the size of the grid, formula see [Thrun, 2017]
 }
 \usage{
 setGridSize(InputDistances,minp=0.01,maxp=0.99,alpha=4)
@@ -23,10 +23,10 @@ setGridSize(InputDistances,minp=0.01,maxp=0.99,alpha=4)
 \details{
 grid is set such that minimum and maximum distances can be shown on the grid}
 \value{
-LC=c(Lines,Columns) size of the grid for pswarmCPP
+LC=c(Lines,Columns) size of the grid for \code{Pswarm}
 }
 \references{
-[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, (Doctoral dissertation), Philipps-Universität Marburg, Marburg, 2017.
+[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation, Springer (in print), Heidelberg, 2017.
 }
 \author{
 Michael Thrun, Florian Lerch

@@ -5,8 +5,9 @@
 Generates the Umatrix for Pswarm algorithm
 }
 \description{
-Generates the special case of the generalized Umatrix which is a topographic map with hypsometric tints.
-For the visualization use \code{plotTopographicMap} of the package GeneralizedUmatrix.
+Generates the special case of the generalized Umatrix with the help of an unsupervised neural network (here self-organizing map).
+From the generalized Umatrix a topographic map with hypsometric tints can be derived.
+To see this visualization use \code{plotTopographicMap} of the package GeneralizedUmatrix.
 }
 \usage{
 GeneratePswarmVisualization(Data,ProjectedPoints,LC,PlotIt=FALSE,ComputeInR=FALSE)
@@ -14,16 +15,16 @@ GeneratePswarmVisualization(Data,ProjectedPoints,LC,PlotIt=FALSE,ComputeInR=FALS
 %- maybe also 'usage' for other objects documented here.
 \arguments{
 \item{Data}{[1:n,1:d] array of data: n cases in rows, d variables in columns}
-\item{ProjectedPoints}{matrix, ProjectedPoints[1:n,1:2]  n by 2 matrix containing coordinates of the Projection: A matrix of the fitted configuration. see output of \code{\link{pswarmCpp}} for further details}
-  \item{LC}{size of the grid c(Lines,Columns), number of Lines and Columns automatic calculated by \code{\link{setGridSize}} in \code{\link{pswarmCpp}}
+\item{ProjectedPoints}{matrix, ProjectedPoints[1:n,1:2]  n by 2 matrix containing coordinates of the Projection: A matrix of the fitted configuration. see output of \code{\link{Pswarm}} for further details}
+  \item{LC}{size of the grid c(Lines,Columns), number of Lines and Columns automatic calculated by \code{\link{setGridSize}} in \code{\link{Pswarm}}
   
 Sometimes is better to choose a different grid size, e.g. to to reduce computional effort
 contrary to SOM, here the grid size defined only the resolution of the visualizations
 The real grid size is predfined by Pswarm, but you may choose a factor x*res$LC if you so desire.
 Therefore, The resulting grid size is given back in the Output.
 }
-\item{PlotIt}{default(FALSE), uses \code{plotTopographicMap} of the package GeneralizedUmatrix}
-\item{ ComputeInR}{=T: Rcode, =F Cpp}
+\item{PlotIt}{Optional, default(FALSE), If TRUE than uses \code{plotTopographicMap} of the package GeneralizedUmatrix}
+\item{ ComputeInR}{Optional, =TRUE: Rcode, =FALSE C++ implementation}
 }
 
 \details{
@@ -43,11 +44,11 @@ chapter 8 of [Thrun, 2017] for Pswarm
 chapter 5.3 of [Thrun, 2017] for generalized Umatrix and especially the \code{sESOM4BMUs} algorithm.
 }
 \references{
-[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, (Doctoral dissertation), Philipps-Universität Marburg, Marburg, 2017.
+[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation, Springer (in print), Heidelberg, 2017.
 
 }
 \note{
-If you used pswarm with distance matrix instead of a data matrix you can mds transform your distances into data. The correct dimension can be found through the Sheppard diagram or kruskals stress.
+If you used pswarm with distance matrix instead of a data matrix you can mds transform your distances into data (see the \code{MDS} function of the ProjectionBasedClustering package.). The correct dimension can be found through the Sheppard diagram or kruskals stress.
 }
 \value{
 list of
@@ -64,9 +65,12 @@ Therefore here the grid size of the neurons is given back.
 Michael Thrun
 }
 \note{
+
+For interactive Island Generation of an generalized Umatrix see \code{interactiveGeneralizedUmatrixIsland} function in the package GeneralizedUmatrix.
+
 The main code of both functions \code{GeneralizedUmatrix} and
  \code{GeneratePswarmVisualization} is the same C++ function
- \code{sESOM4BMUs} which is described in the thesis.
+ \code{sESOM4BMUs} which is described in [Thrun, 2017].
 }
 \seealso{
 \code{\link{Pswarm}} and

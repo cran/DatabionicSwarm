@@ -1,12 +1,14 @@
-\name{pswarmCpp}
+\name{Pswarm}
 \alias{pswarmCpp}
 \alias{Pswarm}
+\alias{pswarm}
 
 \title{
-Swarm based on polar coordinates using the nash equlibrium
+A Swarm of Databots based on polar coordinates (Polar Swarm).
 }
 \description{
-a part of the databionic swarm, see [Thrun, 2017].
+This projetion method is a part of the databionic swarm which uses the nash equlibrium.
+Using polar coordinates for agents (here Databots) in two dimensions has many advantages, for further details see [Thrun, 2017].
 }
 \usage{
 Pswarm(InputDistances,PlotIt=F,Cls=NULL,Silent=T,
@@ -64,7 +66,7 @@ List with
 }
 }
 \references{
-[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, (Doctoral dissertation), Philipps-Universität Marburg, Marburg, 2017.
+[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation, Springer (in print), Heidelberg, 2017.
 }
 \note{
 LC is now automatically estimated; LC is the size of the grid c(Lines,Columns), number of Lines and Columns, default c(NULL,NULL) and automatic calculation by \code{\link{setGridSize}}

@@ -2,10 +2,10 @@
 \alias{findPossiblePositionsCsingle}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-intern function, do not use yourself
+Intern function, do not use yourself
 }
 \description{
-finds all possible jumping position regarding a grid anda Radius for DataBots
+Finds all possible jumping position regarding a grid anda Radius for DataBots
 }
 \usage{
 findPossiblePositionsCsingle(RadiusPositionsschablone,

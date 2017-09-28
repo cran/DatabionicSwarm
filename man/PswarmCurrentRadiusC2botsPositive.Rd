@@ -5,7 +5,7 @@
 intern function, do not use yourself
 }
 \description{
-Finds the weak Nash equilibirium for DataBots in one epoch(Radius), requires the setting of constants, grid, and so on in \code{\link{pswarmCpp}}
+Finds the weak Nash equilibirium for DataBots in one epoch(Radius), requires the setting of constants, grid, and so on in \code{\link{Pswarm}}
 }
 \usage{
 PswarmCurrentRadiusC2botsPositive( AllDataBotsPosOld,

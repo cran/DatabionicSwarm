@@ -7,12 +7,12 @@
 using namespace Rcpp;
 
 // Delta3DWeightsC
-arma::cube Delta3DWeightsC(Rcpp::NumericVector vx, Rcpp::NumericVector Datasample);
+arma::cube Delta3DWeightsC(arma::cube vx, Rcpp::NumericVector Datasample);
 RcppExport SEXP _DatabionicSwarm_Delta3DWeightsC(SEXP vxSEXP, SEXP DatasampleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type vx(vxSEXP);
+    Rcpp::traits::input_parameter< arma::cube >::type vx(vxSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type Datasample(DatasampleSEXP);
     rcpp_result_gen = Rcpp::wrap(Delta3DWeightsC(vx, Datasample));
     return rcpp_result_gen;
@@ -102,19 +102,4 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(trainstepC(vx, vy, DataSampled, BMUsampled, Lines, Columns, Radius, toroid));
     return rcpp_result_gen;
 END_RCPP
-}
-
-static const R_CallMethodDef CallEntries[] = {
-    {"_DatabionicSwarm_Delta3DWeightsC", (DL_FUNC) &_DatabionicSwarm_Delta3DWeightsC, 2},
-    {"_DatabionicSwarm_DijkstraSSSP", (DL_FUNC) &_DatabionicSwarm_DijkstraSSSP, 3},
-    {"_DatabionicSwarm_findPossiblePositionsCsingle", (DL_FUNC) &_DatabionicSwarm_findPossiblePositionsCsingle, 4},
-    {"_DatabionicSwarm_PswarmCurrentRadiusC2botsPositive", (DL_FUNC) &_DatabionicSwarm_PswarmCurrentRadiusC2botsPositive, 14},
-    {"_DatabionicSwarm_rDistanceToroidCsingle", (DL_FUNC) &_DatabionicSwarm_rDistanceToroidCsingle, 6},
-    {"_DatabionicSwarm_trainstepC", (DL_FUNC) &_DatabionicSwarm_trainstepC, 8},
-    {NULL, NULL, 0}
-};
-
-RcppExport void R_init_DatabionicSwarm(DllInfo *dll) {
-    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
-    R_useDynamicSymbols(dll, FALSE);
 }

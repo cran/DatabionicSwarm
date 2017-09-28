@@ -1,10 +1,10 @@
 \name{sESOM4BMUs}
 \alias{sESOM4BMUs}
 \title{
-simplified ESOM
+Intern function: Simplified Emergent Self-Organizing Map
 }
 \description{
-internfunction for the simplified ESOM Algorithmus for fixed BestMatchingUnits
+Intern function for the simplified ESOM (sESOM) algorithm for fixed BestMatchingUnits
 }
 \usage{
 sESOM4BMUs(BMUs,Data, esom, toroid, CurrentRadius,ComputeInR)
@@ -20,7 +20,7 @@ sESOM4BMUs(BMUs,Data, esom, toroid, CurrentRadius,ComputeInR)
 }
 
 \details{
-not for seperated usage!
+Usually not for seperated usage!
 }
 \value{
 
@@ -35,7 +35,7 @@ Michael Thrun
 \code{\link{GeneratePswarmVisualization}}
 }
 \references{
-[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, (Doctoral dissertation), Philipps-Universität Marburg, Marburg, 2017.
+[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation, Springer (in print), Heidelberg, 2017.
 }
 
 \keyword{GeneratePswarmVisualization}

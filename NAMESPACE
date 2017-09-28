@@ -6,10 +6,12 @@ export(Pswarm)
 export(sESOM4BMUs)
 export(setGridSize)
 export(ShortestGraphPathsC)
+export(DijkstraSSSP)
+
 
 import(Rcpp)
 
-import(deldir,'deldir')
+importFrom("deldir","deldir")
 importFrom('stats', "hclust","cutree","as.dendrogram","dist", "quantile", "runif", "as.dist", "median")
 useDynLib(DatabionicSwarm, .registration = TRUE)
 importFrom("graphics", "axis", "box", "par", "plot.new", "points",

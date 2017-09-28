@@ -45,7 +45,7 @@ DBS is a flexible and robust clustering framework that consists
  sensitive parameters. The clustering can be verified by the visualization and vice versa. 
  The term DBS refers to the method as a whole. 
  
-For further details, see Databionic swarm in the Phd thesis, chapter 8.
+For further details, see Databionic swarm in [Thrun, 2017], chapter 8.
 }
 \author{
 Michal Thrun
@@ -53,7 +53,7 @@ Michal Thrun
 Maintainer: Michael Thrun <m.thrun@gmx.net>
 }
 \references{
-[Thrun, 2017]  Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, (Doctoral dissertation), Philipps-Universität Marburg, Marburg, 2017.
+[Thrun, 2017]  Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation, Springer (in print), Heidelberg, 2017.
 
 [Ultsch/Thrun, 2017]  Ultsch, A., & Thrun, M. C.: Credible Visualizations for Planar Projections, in Cottrell, M. (Ed.), 12th International Workshop on Self-Organizing Maps and Learning Vector Quantization, Clustering and Data Visualization (WSOM), IEEE Xplore, France, 2017.
 
@@ -82,20 +82,30 @@ visualization=GeneratePswarmVisualization(Data = Lsun3D$Data,
 projection$ProjectedPoints,projection$LC)
 ## Visualizuation of GenerelizedUmatrix, 
 # Estimation of the Number of Clusters=Number of valleys
-library(GeneralizedUmatrix)
-plotTopographicMap(visualization$Umatrix,visualization$Bestmatches)
+library(GeneralizedUmatrix)#install if not installed
+GeneralizedUmatrix::plotTopographicMap(visualization$Umatrix,visualization$Bestmatches)
 ## Automatic Clustering
 # number of Cluster from dendrogram (PlotIt=TRUE) or visualization 
 Cls=DBSclustering(k=3, Lsun3D$Data, 
 
 visualization$Bestmatches, visualization$LC,PlotIt=FALSE)
 # Verification, often its better to mark Outliers manually
-library(GeneralizedUmatrix)
-plotTopographicMap(visualization$Umatrix,visualization$Bestmatches,Cls)
+
+GeneralizedUmatrix::plotTopographicMap(visualization$Umatrix,visualization$Bestmatches,Cls)
 }
 \dontrun{
-library(ProjectionBasedClustering)
-Cls2=interactiveClustering(visualization$Umatrix, 
+# To generate the 3D landscape in the shape of an island 
+# from the toroidal topograpic map visualization
+# you may cut your island interactivly around high mountain ranges
+Imx = GeneralizedUmatrix::interactiveGeneralizedUmatrixIsland(visualization$Umatrix,
+visualization$Bestmatches,Cls)
+
+GeneralizedUmatrix::plotTopographicMap(visualization$Umatrix,
+visualization$Bestmatches, Cls=Cls,Imx = Imx)
+}
+\dontrun{
+library(ProjectionBasedClustering)#install if not installed
+Cls2=ProjectionBasedClustering::interactiveClustering(visualization$Umatrix, 
 visualization$Bestmatches, Cls)
 }
 \dontshow{
@@ -109,6 +119,9 @@ res$ProjectedPoints, res$LC,PlotIt=FALSE)
 resUmatrix=GeneratePswarmVisualization(data2,res$ProjectedPoints,res$LC)
 }
 
+}
+\note{
+For interactive Island Generation of an generalized Umatrix  see \code{interactiveGeneralizedUmatrixIsland} function in the package GeneralizedUmatrix.
 }
 \keyword{DBS}
 \keyword{DataBionic}
