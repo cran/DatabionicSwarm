@@ -14,3 +14,10 @@
 Transforms Databot indizes to exact cartesian coordinates on an toroid two dimensional grid. }
 \author{
 Michael Thrun}
+\details{
+
+Transformation is described in [Thrun, 2018, p. 93].
+}
+\references{
+[Thrun, 2018]  Thrun, M. C.: Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation 2017, Springer, Heidelberg, ISBN: 978-3-658-20539-3, \url{https://doi.org/10.1007/978-3-658-20540-9}, 2018. 
+}

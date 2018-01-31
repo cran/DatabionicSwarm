@@ -18,7 +18,7 @@ ProjectedPoints2Grid(ProjectedPoints, Lines, Columns,PlotIt)
   \item{PlotIt}{optional, bool, shows the result if TRUE}
 }
 \details{
-intern function
+intern function, described in [Thrun, 2018, p.47]
 }
 \value{
 BestMatches[1:n,1:3] columns in order: Key,Lines,Columns
@@ -30,6 +30,8 @@ Michael Thrun
 }
 \seealso{\code{\link{GeneratePswarmVisualization}}
 }
-
+\references{
+[Thrun, 2018]  Thrun, M. C.: Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation 2017, Springer, Heidelberg, ISBN: 978-3-658-20539-3, \url{https://doi.org/10.1007/978-3-658-20540-9}, 2018. 
+}
 \keyword{GeneratePswarmVisualization}% use one of  RShowDoc("KEYWORDS")
 \keyword{generlized Umatrix}% __ONLY ONE__ keyword per line

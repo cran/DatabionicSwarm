@@ -7,7 +7,7 @@ export(sESOM4BMUs)
 export(setGridSize)
 export(ShortestGraphPathsC)
 export(DijkstraSSSP)
-
+export(RobustNormalization)
 
 import(Rcpp)
 

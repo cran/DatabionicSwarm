@@ -29,16 +29,14 @@ DBSclustering(k, Data, BestMatches, LC, StructureType = TRUE, PlotIt = FALSE,
  The second module is a parameter-free high-dimensional data visualization technique, 
  which generates projected points on a topographic map with hypsometric colors \code{\link{GeneratePswarmVisualization}}, 
  called the generalized U-matrix. The third module is a clustering method with no 
- sensitive parameters \code{\link{DBSclustering}}. The clustering can be verified by the visualization and vice versa. 
+ sensitive parameters \code{\link{DBSclustering}} (see [Thrun, 2018, p. 104 ff]). The clustering can be verified by the visualization and vice versa. 
  The term DBS refers to the method as a whole. 
 }
 \value{
 Cls                 [1:n] vector with selected classes of the bestmatches. You can use \code{plotTopographicMap(Umatrix,Bestmatches,Cls)} for verification.
 }
 \references{
-[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation, Springer (in print), Heidelberg, 2017.
-
-[Thrun/Ultsch, 2017] Thrun, M.C., Ultsch, A.: Projection based Clustering, Conf. Int. Federation of Classification Societies (IFCS),DOI:10.13140/RG.2.2.13124.53124, Tokyo, 2017.
+[Thrun, 2018]  Thrun, M. C.: Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation 2017, Springer, Heidelberg, ISBN: 978-3-658-20539-3, \url{https://doi.org/10.1007/978-3-658-20540-9}, 2018. 
 
 }
 \author{
@@ -49,6 +47,8 @@ If you used pswarm with distance matrix instead of a data matrix you may transfo
 
 Often it is better to mark the outliers  manually after the prozess of clustering and sometimes a clustering can be improved through human interaction [Thrun/Ultsch,2017] <DOI:10.13140/RG.2.2.13124.53124>; use in this case the visualization \code{plotTopographicMap} of the package GeneralizedUmatrix. If you would like to mark the outliers interactivly in the visualization use the Umatrix package in \url{https://www.uni-marburg.de/fb12/datenbionik/software-en}
 or the function \code{interactiveClustering()} of the ProjectionBasedClustering package on CRAN.
+
+ If you want to verifiy your clustering result externally, you can use \code{Heatmap} or \code{SilhouettePlot} of the CRAN package \code{DataVisualizations}.
 }
 \examples{
 data("Lsun3D")

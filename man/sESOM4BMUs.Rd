@@ -20,8 +20,10 @@ sESOM4BMUs(BMUs,Data, esom, toroid, CurrentRadius,ComputeInR)
 }
 
 \details{
-Usually not for seperated usage!
+
+Algorithm is described in [Thrun, 2018, p. 48, Listing 5.1].
 }
+\note{Usually not for seperated usage!}
 \value{
 
  \item{esom}{array [1:Lines,1:Columns,1:d], d is the dimension of the weights, the same as in the ESOM algorithm. modified esomneuros regarding a predefined neighborhood defined by a radius}
@@ -35,7 +37,7 @@ Michael Thrun
 \code{\link{GeneratePswarmVisualization}}
 }
 \references{
-[Thrun, 2017]   Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation, Springer (in print), Heidelberg, 2017.
+[Thrun, 2018]  Thrun, M. C.: Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation 2017, Springer, Heidelberg, ISBN: 978-3-658-20539-3, \url{https://doi.org/10.1007/978-3-658-20540-9}, 2018. 
 }
 
 \keyword{GeneratePswarmVisualization}

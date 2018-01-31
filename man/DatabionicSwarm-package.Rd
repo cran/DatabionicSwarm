@@ -12,14 +12,14 @@ another and sense their environment may exhibit emergent behavior such
 as self-organization and swarm intelligence. Here a swarm system, called
  databionic swarm (DBS), is introduced which is able to adapt itself to 
  structures of high-dimensional data such as natural clusters characterized
- by distance and/or density based structures in the data space [Thrun, 2017].
+ by distance and/or density based structures in the data space [Thrun, 2018].
  The first module is the parameter-free projection method Pswarm,
  which exploits the concepts of self-organization and emergence,
  game theory, swarm intelligence and symmetry considerations. 
  The second module is a parameter-free high-dimensional data 
  visualization technique, which generates projected points on 
  a topographic map with hypsometric colors [Thrun et al., 2016]
- based on the generalized U-matrix [Ultsch/Thrun, 2017]. 
+ based on the generalized U-matrix [Ultsch/Thrun, 2017, Thrun 2018]. 
  The third module is the clustering method itself with non-critical parameters.
  The clustering can be verified by the visualization and vice versa. 
  The term DBS refers to the method as a whole. 
@@ -31,8 +31,8 @@ as self-organization and swarm intelligence. Here a swarm system, called
 \tabular{ll}{
 Package: \tab Databonic swarm\cr
 Type: \tab Package\cr
-Version: \tab 0.9.6\cr
-Date: \tab 2017-05-18\cr
+Version: \tab 1.0.0\cr
+Date: \tab 2018-01-28\cr
 License: \tab CC BY-NC-SA 4.0\cr
 }
 DBS is a flexible and robust clustering framework that consists
@@ -45,7 +45,10 @@ DBS is a flexible and robust clustering framework that consists
  sensitive parameters. The clustering can be verified by the visualization and vice versa. 
  The term DBS refers to the method as a whole. 
  
-For further details, see Databionic swarm in [Thrun, 2017], chapter 8.
+For further details, see Databionic swarm in [Thrun, 2018], chapter 8.
+
+ If you want to verifiy your clustering result externally, you can use \code{Heatmap} or \code{SilhouettePlot} of the CRAN package \code{DataVisualizations}.
+
 }
 \author{
 Michal Thrun
@@ -53,11 +56,21 @@ Michal Thrun
 Maintainer: Michael Thrun <m.thrun@gmx.net>
 }
 \references{
-[Thrun, 2017]  Thrun, M. C.:A System for Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation, Springer (in print), Heidelberg, 2017.
+[Thrun, 2018]  Thrun, M. C.: Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation 2017, Springer, Heidelberg, ISBN: 978-3-658-20539-3, \url{https://doi.org/10.1007/978-3-658-20540-9}, 2018. 
 
 [Ultsch/Thrun, 2017]  Ultsch, A., & Thrun, M. C.: Credible Visualizations for Planar Projections, in Cottrell, M. (Ed.), 12th International Workshop on Self-Organizing Maps and Learning Vector Quantization, Clustering and Data Visualization (WSOM), IEEE Xplore, France, 2017.
 
 [Thrun et al., 2016]  Thrun, M. C., Lerch, F., Loetsch, J., & Ultsch, A.: Visualization and 3D Printing of Multivariate Data of Biomarkers, in Skala, V. (Ed.), International Conference in Central Europe on Computer Graphics, Visualization and Computer Vision (WSCG), Vol. 24, Plzen, http://wscg.zcu.cz/wscg2016/short/A43-full.pdf, 2016.
+
+
+
+Successfully applied in
+
+[Thrun, 2018]  Thrun, M. C.: Cluster Analysis of the World Gross-Domestic Product Based on Emergent Self-Organization of a Swarm, 12th Professor Aleksander Zelias International Conference on Modelling and Forecasting of Socio-Economic Phenomena, Foundation of the Cracow University of Economics, Zakopane, Poland, 2018.
+
+[Weyer-Menkhoff et al., 2018]  Weyer-Menkhoff, I., Thrun, M. C., & Lötsch, J.: Machine-learned analysis of quantitative sensory testing responses to noxious cold stimulation in healthy subjects, European Journal of Pain, Vol. accepted, 2018.
+
+[Kringel et al., 2018]  Kringel, D., Geisslinger, G., Resch, E., Oertel, B. G., Thrun, M. C., Heinemann, S., & Lötsch, J.: Machine-learned analysis of the association of next-generation sequencing based human TRPV1 and TRPA1 genotypes with the sensitivity to heat stimuli and topolically applied capsaicin, Pain, Vol. in review, pp., 2018.
 
 }
 \examples{
