@@ -118,10 +118,10 @@ calcUmatrixToroid <- function(EsomNeurons){
 #########################################################################
 ##end calcUmatrixToroid
 #########################################################################
-rr=round(Columns/10,0)
-toroid=T
-if(rr<10){
-  HeuristischerParameter=8
+rr=round(max(c(Columns,Lines))/10,0)
+
+if(rr<12){
+  HeuristischerParameter=12
 }else{
   HeuristischerParameter=rr
 }
@@ -160,7 +160,7 @@ vec=pmax(seq(from=AnfangsRadius-1,by=-1,length.out = HeuristischerParameter),1)
   for (i in vec){
     CurrentRadius =  i#max(AnfangsRadius-i,1) #Endradius=1
     #Algorithmus
-      wts=sESOM4BMUs(BMUs,Data, wts, toroid, CurrentRadius,ComputeInR)
+      wts=sESOM4BMUs(BMUs,Data, wts, toroid=T, CurrentRadius,ComputeInR)
     print(paste0('Operator: getUmatrix4BMUs() at ',round(1-i/HeuristischerParameter,2)*100,'%'))
   } # end 1:epochs
  

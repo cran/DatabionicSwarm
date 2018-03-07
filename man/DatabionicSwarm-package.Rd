@@ -45,7 +45,7 @@ DBS is a flexible and robust clustering framework that consists
  sensitive parameters. The clustering can be verified by the visualization and vice versa. 
  The term DBS refers to the method as a whole. 
  
-For further details, see Databionic swarm in [Thrun, 2018], chapter 8.
+For further details, see Databionic swarm in [Thrun, 2018], chapter 8. Further examples will be provided in \url{www.deepbionics.org}.
 
  If you want to verifiy your clustering result externally, you can use \code{Heatmap} or \code{SilhouettePlot} of the CRAN package \code{DataVisualizations}.
 

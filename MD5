@@ -1,8 +1,8 @@
-b4941f6684af14dc066d625e3ccf319a *DESCRIPTION
+3c2bbd5e8a1774e912070a6ee125df35 *DESCRIPTION
 be6657950a14436ce009a8d2cbc6e38a *NAMESPACE
 987388c4b3e8a417141cd71497e33943 *R/DBSclustering.R
 1cd8e4131e8592a0ff1abc4c1c3adbad *R/Delaunay4Points.R
-81bc30eb03b4c3b923a6c62f9380d174 *R/GeneratePswarmVisualization.R
+06ce8210faba36cdcbfc0cf6a7f2f097 *R/GeneratePswarmVisualization.R
 e7ba915a33c123b23c017d42f8e50868 *R/MultipleSwarms.R
 171f342bae806da52705688ddac07c4f *R/ProjectedPoints2Grid.R
 0e60dd3651f24e9c535e617ee87391d6 *R/Pswarm.R
@@ -21,7 +21,7 @@ cb72bf49fd4a549adda46d116099b714 *R/setRmin.R
 8c0bfb659862b8c66ea693384748491a *data/DefaultColorSequence.rda
 8f20ce6f6321f43d6a6ce858198f2dc8 *data/Lsun3D.rda
 9f0ef3f10d1b5f60739358f06eb665ab *man/DBSclustering.Rd
-6105a55f8d03abd831cf8a8dd8249f29 *man/DatabionicSwarm-package.Rd
+f9d36dcf843beb7ef6ca790d6c9adc0b *man/DatabionicSwarm-package.Rd
 38b5beab7724e4d05d00f795724b9e14 *man/DefaultColorSequence.Rd
 03e0de4e63019e005aaa5cb35d5ae881 *man/Delaunay4Points.Rd
 54ebb21c9ea1ebf58b20c875dc0e4440 *man/Delta3DWeightsC.Rd
