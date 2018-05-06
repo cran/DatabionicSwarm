@@ -8,11 +8,18 @@ RobustNormalization
 RobustNormalization as described in [Milligan/Cooper, 1988].
 }
 \usage{
-RobustNormalization(Data)
+RobustNormalization(Data,Centered=FALSE,Capped=FALSE,na.rm=TRUE) 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{Data}{[1:n,1:d]
+
+}
+  \item{Centered}{ centered data around zero by median if TRUE
+}
+  \item{Capped}{TRUE: Outliers are capped above 1 or below -1 and set to 1 or -1.
+}
+  \item{na.rm}{If TRUE, infinite vlaues are disregarded
 
 }
 }

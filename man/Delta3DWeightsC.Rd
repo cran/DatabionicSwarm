@@ -16,7 +16,7 @@ Delta3DWeightsC(vx,Datasample)
 }
 \details{
 intern function in case of \code{ComputeInR==FALSE} in \code{\link{GeneratePswarmVisualization}},
-see chapter 5.3 of [Thrun, 2017] for generalized Umatrix and especially the \code{sESOM4BMUs} algorithm.
+see chapter 5.3 of [Thrun, 2018] for generalized Umatrix and especially the \code{sESOM4BMUs} algorithm.
 }
 \value{
 modified array of weights [1:Lines,1:Columns,1:]

@@ -8,19 +8,23 @@ Automated Clustering approach of the Databonic swarm with abstact U distances, w
 are the geodesic distances based on high-dimensional distances combined with low dimensional graph paths by using \code{ShortestGraphPathsC}.
 }
 \usage{
-DBSclustering(k, Data, BestMatches, LC, StructureType = TRUE, PlotIt = FALSE,
-                 method = "euclidean")
+DBSclustering(k, DataOrDistance, BestMatches, LC, StructureType = TRUE, PlotIt = FALSE,
+                 method = "euclidean",...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{k}{number of clusters, how many to you see in the topographic map (3D landscape)?}
-  \item{Data}{[1:n,1:d] Matrix of Data (n cases, d dimensions) that will be used. One DataPoint per row}
+  \item{DataOrDistance}{ Either [1:n,1:d] Matrix of Data (n cases, d dimensions) that will be used. One DataPoint per row
+  
+  or symmetric Distance matrix [1:n,1:n]}
   \item{BestMatches}{[1:n,1:2] Matrix with positions of Bestmatches=ProjectedPoints, one matrix line per data point}
   \item{LC}{grid size c(Lines,Columns)}
-  \item{StructureType}{Optional, bool; =TRUE: compact structure of clusters assumed, =FALSE: connected structure of clusters assumed. For the two options vor Clusters, see [Thrun, 2017] or Handl et al. 2006}
+  \item{StructureType}{Optional, bool; =TRUE: compact structure of clusters assumed, =FALSE: connected structure of clusters assumed. For the two options vor Clusters, see [Thrun, 2018] or Handl et al. 2006}
   \item{PlotIt}{Optional, bool, Plots Dendrogramm}
-  \item{method}{Optional, distance method,  do not change}
-}
+  \item{method}{Optional, one of 39 distance methods of \code{parDist} of package parallelDist,  if Data matrix is chosen above}
+   \item{\dots}{Further arguments passed on to the \code{parDist} function, e.g. user-defined distance functions}
+
+  }
 \details{
  DBS is a flexible and robust clustering framework that consists
  of three independent modules. The first module is the parameter-free

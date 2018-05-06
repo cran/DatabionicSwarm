@@ -8,17 +8,17 @@ A Swarm of Databots based on polar coordinates (Polar Swarm).
 }
 \description{
 This projetion method is a part of the databionic swarm which uses the nash equlibrium.
-Using polar coordinates for agents (here Databots) in two dimensions has many advantages, for further details see [Thrun, 2017].
+Using polar coordinates for agents (here Databots) in two dimensions has many advantages, for further details see [Thrun, 2018].
 }
 \usage{
-Pswarm(InputDistances,PlotIt=F,Cls=NULL,Silent=T,
+Pswarm(DataOrDistance,PlotIt=F,Cls=NULL,Silent=T,
 
-Debug=FALSE,LC=c(NULL,NULL))
+Debug=FALSE,LC=c(NULL,NULL),method= "euclidean",...)
 }
 \arguments{
-  \item{InputDistances}{
-	matrix, InputDistances[1:n,1:n] symmetric matrix of dissimilarities, if variable unsymmetric 
-	InputDistances[1:d,1:n] is assumed as a dataset and the euclidean distances are calculated of d variables and n cases
+  \item{DataOrDistance}{
+	matrix, DataOrDistance[1:n,1:n] symmetric matrix of dissimilarities, if variable unsymmetric 
+	DataOrDistance[1:d,1:n] is assumed as a dataset and the euclidean distances are calculated of d variables and n cases
 }
 
   \item{PlotIt}{
@@ -40,6 +40,8 @@ Debug=FALSE,LC=c(NULL,NULL))
 
 		sometimes it is better to call \code{\link{setGridSize}} separately.
 }
+  \item{method}{Optional, one of 39 distance methods of \code{parDist} of package parallelDist,  if Data matrix is chosen above}
+    \item{\dots}{Further arguments passed on to the \code{parDist} function, e.g. user-defined distance functions}
 }
 
 \details{
@@ -81,7 +83,7 @@ Cls=Lsun3D$Cls
 InputDistances=as.matrix(dist(Data))
 #If not called separately setGridSize() is called in Pswarm
 LC=setGridSize(InputDistances)
-\donttest{res=Pswarm(InputDistances,,LC=LC,Cls=Cls,PlotIt=TRUE)}
+\donttest{res=Pswarm(InputDistances,LC=LC,Cls=Cls,PlotIt=TRUE)}
 
 \dontshow{
 data=matrix(runif(n = 100),10,10)

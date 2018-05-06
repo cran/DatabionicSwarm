@@ -1,10 +1,10 @@
-Pswarm = pswarmCpp = function(InputDistances,PlotIt=F,Cls=NULL,Silent=T,Debug=FALSE,LC=c(NULL,NULL)){
+Pswarm = pswarmCpp = function(DataOrDistance,PlotIt=F,Cls=NULL,Silent=T,Debug=FALSE,LC=c(NULL,NULL),method='euclidean',...){
 # bmus=pswarmCpp(DataOrDists,PlotIt=T,Cls)
 # Laesst den Pswarm Schwarmalgorithmus ueber einen Datensatz laufen
 # polar oriatated swarm
 #
 # INPUT
-# InputDistances[1:n,1:d]   distance matrix, the  matrix has to be symmetric, 
+# DataOrDistance[1:n,1:d]   distance matrix, the  matrix has to be symmetric, 
 #                           if its not symetric data matrix is assumed and Dists=DistanceMatrix(data); 
 #                           data matrix is array of data: n cases in rows, d variables in columns, matrix is not symmetric
 #
@@ -34,21 +34,21 @@ Pswarm = pswarmCpp = function(InputDistances,PlotIt=F,Cls=NULL,Silent=T,Debug=FA
 #						                # BEWARE: If you choose hexagonal, Column number must be divisible by four 
 #
 
-  InputDistances=checkInputDistancesOrData(InputDistances)
+  DataOrDistance=checkInputDistancesOrData(DataOrDistance)
   
-  if (missing(InputDistances)) {
+  if (missing(DataOrDistance)) {
     stop('Distances are Missing.')
   } else{
-    if (is.list(InputDistances)) {
-      stop('InputDistances is a list! It has to be a matrix.')
+    if (is.list(DataOrDistance)) {
+      stop('DataOrDistance is a list! It has to be a matrix.')
     }
-    if (!is.matrix(InputDistances)) {
+    if (!is.matrix(DataOrDistance)) {
       {
-        warning('InputDistances is not a matrix. Trying to circumvent...')
-        if (is.data.frame(InputDistances))
-          InputDistances = data.matrix(InputDistances)
+        warning('DataOrDistance is not a matrix. Trying to circumvent...')
+        if (is.data.frame(DataOrDistance))
+          DataOrDistance = data.matrix(DataOrDistance)
         else
-          InputDistances = as.matrix(InputDistances)
+          DataOrDistance = as.matrix(DataOrDistance)
       }
     }
   }
@@ -59,16 +59,16 @@ Pswarm = pswarmCpp = function(InputDistances,PlotIt=F,Cls=NULL,Silent=T,Debug=FA
   # if(PlotIt)
   #   tryCatch({requireNamespace("plotrix")},error=function(ex) {})#zum plotten
   #
-  if (isSymmetric(InputDistances)) {
-    DataDists = InputDistances
-    AnzVar = ncol(InputDistances)
-    AnzData = nrow(InputDistances)
+  if (isSymmetric(DataOrDistance)) {
+    DataDists = DataOrDistance
+    AnzVar = ncol(DataOrDistance)
+    AnzData = nrow(DataOrDistance)
   } else{
     #!isSymmetric
     warning('Distances are not in a symmetric matrix, Datamatrix is assumed and dist() ist called')
-
-    DataDists = as.matrix(dist(InputDistances, method = "euclidean", diag =
-                                 TRUE))
+    
+    requireNamespace('parallelDist')
+    DataDists = as.matrix(parallelDist::parDist(DataOrDistance, method = method,...))
 		AnzVar = ncol(DataDists)
     AnzData = nrow(DataDists)
   }# end if(isSymmetric(DataOrDists))
@@ -252,9 +252,9 @@ Pswarm = pswarmCpp = function(InputDistances,PlotIt=F,Cls=NULL,Silent=T,Debug=FA
                                 QuadOrHexa = QuadOrHexa)
   #Possible Minor Rounding error
   if(max(bmu[,1])>Lines)
-    Lines=ceiling(max(bmu[,1]))
+    Lines=Lines+1
   if(max(bmu[,2])>Columns)
-    Columns=ceiling(max(bmu[,2]))
+    Columns=Columns+1
   
   return(list(
     ProjectedPoints = bmu,

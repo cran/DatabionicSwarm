@@ -49,11 +49,20 @@ GeneratePswarmVisualization=function(Data,ProjectedPoints,LC,PlotIt=FALSE,Comput
   # },error=function(ex){
   #   print('Precompiled package, sourceCPP omitted.')
   # })
+  Lines=LC[1]
+  Columns=LC[2]
+  
+if(Lines>Columns){
+  warning('Lines should not be bigger then Columns. Rotating Projected Points in a 90 degree angle.')
+  Linestemp=Columns
+  Columns=Lines
+  Lines=Linestemp
+  ProjectedPoints=ProjectedPoints[,c(2,1)]
+  eps=4
+  
+}
   
 
-  
-Lines=LC[1]
-Columns=LC[2]
 #Der Standardalgorithmus funktioniert ohne Lines und Columns, und liefer nicht
 # immer exakt die Voreinstellung des Schwarmes an Lines/Columns
 Points=ProjectedPoints2Grid(ProjectedPoints,Lines,Columns)

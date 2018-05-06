@@ -69,7 +69,7 @@ For interactive Island Generation of an generalized Umatrix see \code{interactiv
 
 The main code of both functions \code{GeneralizedUmatrix} and
  \code{GeneratePswarmVisualization} is the same C++ function
- \code{sESOM4BMUs} which is described in [Thrun, 2017].
+ \code{sESOM4BMUs} which is described in [Thrun, 2018].
 }
 \seealso{
 \code{\link{Pswarm}} and

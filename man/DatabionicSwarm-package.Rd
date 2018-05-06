@@ -45,7 +45,9 @@ DBS is a flexible and robust clustering framework that consists
  sensitive parameters. The clustering can be verified by the visualization and vice versa. 
  The term DBS refers to the method as a whole. 
  
-For further details, see Databionic swarm in [Thrun, 2018], chapter 8. Further examples will be provided in \url{www.deepbionics.org}.
+For further details, see Databionic swarm in [Thrun, 2018], chapter 8. 
+
+Further examples and a comparison to 26 common clustering algorithms is provided in \url{http://www.deepbionics.org/Projects/ClusteringAlgorithms.html}.
 
  If you want to verifiy your clustering result externally, you can use \code{Heatmap} or \code{SilhouettePlot} of the CRAN package \code{DataVisualizations}.
 
@@ -68,9 +70,9 @@ Successfully applied in
 
 [Thrun, 2018]  Thrun, M. C.: Cluster Analysis of the World Gross-Domestic Product Based on Emergent Self-Organization of a Swarm, 12th Professor Aleksander Zelias International Conference on Modelling and Forecasting of Socio-Economic Phenomena, Foundation of the Cracow University of Economics, Zakopane, Poland, 2018.
 
-[Weyer-Menkhoff et al., 2018]  Weyer-Menkhoff, I., Thrun, M. C., & Lötsch, J.: Machine-learned analysis of quantitative sensory testing responses to noxious cold stimulation in healthy subjects, European Journal of Pain, Vol. accepted, 2018.
+[Weyer-Menkhoff et al., 2018]  Weyer-Menkhoff, I., Thrun, M. C., & Lötsch, J.: Machine-learned analysis of quantitative sensory testing responses to noxious cold stimulation in healthy subjects, European Journal of Pain, Vol. 22(5), 2018.
 
-[Kringel et al., 2018]  Kringel, D., Geisslinger, G., Resch, E., Oertel, B. G., Thrun, M. C., Heinemann, S., & Lötsch, J.: Machine-learned analysis of the association of next-generation sequencing based human TRPV1 and TRPA1 genotypes with the sensitivity to heat stimuli and topolically applied capsaicin, Pain, Vol. in review, pp., 2018.
+[Kringel et al., 2018]  Kringel, D., Geisslinger, G., Resch, E., Oertel, B. G., Thrun, M. C., Heinemann, S., & Lötsch, J.: Machine-learned analysis of the association of next-generation sequencing based human TRPV1 and TRPA1 genotypes with the sensitivity to heat stimuli and topolically applied capsaicin, Pain, in print, 2018.
 
 }
 \examples{
@@ -110,7 +112,7 @@ GeneralizedUmatrix::plotTopographicMap(visualization$Umatrix,visualization$Bestm
 # To generate the 3D landscape in the shape of an island 
 # from the toroidal topograpic map visualization
 # you may cut your island interactivly around high mountain ranges
-Imx = GeneralizedUmatrix::interactiveGeneralizedUmatrixIsland(visualization$Umatrix,
+Imx = ProjectionBasedClustering::interactiveGeneralizedUmatrixIsland(visualization$Umatrix,
 visualization$Bestmatches,Cls)
 
 GeneralizedUmatrix::plotTopographicMap(visualization$Umatrix,

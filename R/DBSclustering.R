@@ -1,9 +1,9 @@
-DBSclustering=function(k,Data,BestMatches,LC,StructureType=TRUE,PlotIt=FALSE,method='euclidean'){
+DBSclustering=function(k,DataOrDistance,BestMatches,LC,StructureType=TRUE,PlotIt=FALSE,method='euclidean',...){
 #Cls=DBSclustering(k,Data,BestMatches,LC,StructureType=TRUE,PlotIt=F,method='euclidean')
 # automated Clustering approach of the DataBionicSwarm with abstact U distances
 # INPUT
 # k                   number of classes, how many to you see in the 3d landscape?
-# Data                Matrix of Data that will be used. One DataPoint per row
+# DataOrDistance      Matrix of Data or Distance that will be used. One DataPoint per row
 # BestMatches         Array with positions of Bestmatches=ProjectedPoints
 # LC
 # OPTIONAL  
@@ -22,12 +22,23 @@ DBSclustering=function(k,Data,BestMatches,LC,StructureType=TRUE,PlotIt=FALSE,met
 # Alus 2016 IDEE ueber die Distanz ist in AUstarDist.R implementiert
   #requireRpackage('deldir')
   #requireRpackage('geometry')
-  Data=checkInputDistancesOrData(Data)
+  DataOrDistance=checkInputDistancesOrData(DataOrDistance)
+  
+  if (isSymmetric(DataOrDistance)) {
+    InputD = DataOrDistance
+    rnames=1:nrow(DataOrDistance)
+  } else{
+    if(!is.null(rownames(DataOrDistance)))
+      rnames=rownames(DataOrDistance)
+    else
+      rnames=1:nrow(DataOrDistance)
+    requireNamespace('parallelDist')
+    InputD = as.matrix(parallelDist::parDist(DataOrDistance, method = method,...))
+  }# end if(isSymmetric(DataOrDists))
   
  GabrielGraph=FALSE #gabriel graph immer schlechter...
   GOutput=Delaunay4Points(BestMatches, Grid = LC, IsToroid=T,PlotIt=F,Gabriel=GabrielGraph)
     
-    InputD=as.matrix(dist(Data,method = method))
     Dist=ShortestGraphPathsC(GOutput,InputD)
   if(StructureType){
     pDist=as.dist(Dist)
@@ -87,6 +98,6 @@ DBSclustering=function(k,Data,BestMatches,LC,StructureType=TRUE,PlotIt=FALSE,met
       break
     # print(counter)
   }
-
+  names(Cls)=rnames
   return(Cls)
 }
