@@ -65,11 +65,12 @@ Pswarm = pswarmCpp = function(DataOrDistance,PlotIt=F,Cls=NULL,Silent=T,Debug=FA
     AnzData = nrow(DataOrDistance)
   } else{
     #!isSymmetric
-    warning('Distances are not in a symmetric matrix, Datamatrix is assumed and dist() ist called')
+	if(!Silent)
+		print('Distances are not in a symmetric matrix, Datamatrix is assumed and parallelDist::parDist() ist called')
     
     requireNamespace('parallelDist')
     DataDists = as.matrix(parallelDist::parDist(DataOrDistance, method = method,...))
-		AnzVar = ncol(DataDists)
+	AnzVar = ncol(DataDists)
     AnzData = nrow(DataDists)
   }# end if(isSymmetric(DataOrDists))
 
@@ -102,10 +103,10 @@ Pswarm = pswarmCpp = function(DataOrDistance,PlotIt=F,Cls=NULL,Silent=T,Debug=FA
   }
   Rmax = Lines / 2
   
-  reldiffp=function(x,y){
-    if(x+y==0) return(0)
-    return(signif((y-x)/(0.5*(x+y)),2)*100)
-  }
+  #reldiffp=function(x,y){
+  #  if(x+y==0) return(0)
+  #  return(signif((y-x)/(0.5*(x+y)),2)*100)
+  #}
   
   # Initialisierung von ben?tigten InputVariablen
   ################################################################################################
@@ -233,7 +234,7 @@ Pswarm = pswarmCpp = function(DataOrDistance,PlotIt=F,Cls=NULL,Silent=T,Debug=FA
       print(
         paste0(
           'Operator: weak Nash equilibrium found. Paypoff maximized with ',
-          reldiffp(List$stressverlauf[1],tail(List$stressverlauf, 1)),
+          signif(RelativeDifference(List$stressverlauf[1],tail(List$stressverlauf, 1)),2),
           ' %'
         )
       )

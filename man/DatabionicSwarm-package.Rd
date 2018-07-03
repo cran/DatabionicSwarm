@@ -1,61 +1,31 @@
 \name{DatabionicSwarm-package}
 \alias{DatabionicSwarm-package}
-\alias{Databonic swarm}
-\alias{DBS}
+\alias{DatabionicSwarm}
 \docType{package}
 \title{
-Databionic Swarm (DBS)
+\packageTitle{DatabionicSwarm}
 }
 \description{
-Algorithms implementing populations of agents which interact with one 
-another and sense their environment may exhibit emergent behavior such 
-as self-organization and swarm intelligence. Here a swarm system, called
- databionic swarm (DBS), is introduced which is able to adapt itself to 
- structures of high-dimensional data such as natural clusters characterized
- by distance and/or density based structures in the data space [Thrun, 2018].
- The first module is the parameter-free projection method Pswarm,
- which exploits the concepts of self-organization and emergence,
- game theory, swarm intelligence and symmetry considerations. 
- The second module is a parameter-free high-dimensional data 
- visualization technique, which generates projected points on 
- a topographic map with hypsometric colors [Thrun et al., 2016]
- based on the generalized U-matrix [Ultsch/Thrun, 2017, Thrun 2018]. 
- The third module is the clustering method itself with non-critical parameters.
- The clustering can be verified by the visualization and vice versa. 
- The term DBS refers to the method as a whole. 
- DBS enables even a non-professional in the field of data mining 
- to apply its algorithms for visualization and/or clustering to 
- data sets with completely different structures drawn from diverse research fields.
+\packageDescription{DatabionicSwarm}
 }
 \details{
+For a brief introduction to \pkg{DatabionicSwarm} please see the vignette \href{../doc/DatabionicSwarm.html}{Short Intro to the Databionic Swarm (DBS)}.
+
 \tabular{ll}{
 Package: \tab Databonic swarm\cr
 Type: \tab Package\cr
-Version: \tab 1.0.0\cr
-Date: \tab 2018-01-28\cr
+Version: \tab 1.1.0\cr
+Date: \tab 2018-07-02\cr
 License: \tab CC BY-NC-SA 4.0\cr
 }
-DBS is a flexible and robust clustering framework that consists
- of three independent modules. The first module is the parameter-free
- projection method Pswarm, which exploits the concepts of self-organization
- and emergence, game theory, swarm intelligence and symmetry considerations. 
- The second module is a parameter-free high-dimensional data visualization technique, 
- which generates projected points on a topographic map with hypsometric colors, 
- called the generalized U-matrix. The third module is a clustering method with no 
- sensitive parameters. The clustering can be verified by the visualization and vice versa. 
- The term DBS refers to the method as a whole. 
- 
-For further details, see Databionic swarm in [Thrun, 2018], chapter 8. 
 
-Further examples and a comparison to 26 common clustering algorithms is provided in \url{http://www.deepbionics.org/Projects/ClusteringAlgorithms.html}.
-
- If you want to verifiy your clustering result externally, you can use \code{Heatmap} or \code{SilhouettePlot} of the CRAN package \code{DataVisualizations}.
+\packageIndices{DatabionicSwarm}
 
 }
 \author{
 Michal Thrun
 
-Maintainer: Michael Thrun <m.thrun@gmx.net>
+Maintainer: \packageMaintainer{DatabionicSwarm}
 }
 \references{
 [Thrun, 2018]  Thrun, M. C.: Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation 2017, Springer, Heidelberg, ISBN: 978-3-658-20539-3, \url{https://doi.org/10.1007/978-3-658-20540-9}, 2018. 
@@ -68,13 +38,16 @@ Maintainer: Michael Thrun <m.thrun@gmx.net>
 
 Successfully applied in
 
-[Thrun, 2018]  Thrun, M. C.: Cluster Analysis of the World Gross-Domestic Product Based on Emergent Self-Organization of a Swarm, 12th Professor Aleksander Zelias International Conference on Modelling and Forecasting of Socio-Economic Phenomena, Foundation of the Cracow University of Economics, Zakopane, Poland, 2018.
+[Thrun, 2018]  Thrun, M. C. : Cluster Analysis of the World Gross-Domestic Product Based on Emergent Self-Organization of a Swarm, in Papiez, M. & Smiech, S. (eds.), Proc. 12th Professor Aleksander Zelias International Conference on Modelling and Forecasting of Socio-Economic Phenomena, pp. 523-532, Foundation of the Cracow University of Economics, Cracow, Poland, 2018. 
 
-[Weyer-Menkhoff et al., 2018]  Weyer-Menkhoff, I., Thrun, M. C., & Lötsch, J.: Machine-learned analysis of quantitative sensory testing responses to noxious cold stimulation in healthy subjects, European Journal of Pain, Vol. 22(5), 2018.
+[Thrun et al., 2018]   Thrun, M. C., Breuer, L., & Ultsch, A. : Knowledge discovery from low-frequency stream nitrate concentrations: hydrology and biology contributions, Proc. European Conference on Data Analysis (ECDA), pp. accepted, Paderborn, Germany, 2018. 
 
-[Kringel et al., 2018]  Kringel, D., Geisslinger, G., Resch, E., Oertel, B. G., Thrun, M. C., Heinemann, S., & Lötsch, J.: Machine-learned analysis of the association of next-generation sequencing based human TRPV1 and TRPA1 genotypes with the sensitivity to heat stimuli and topolically applied capsaicin, Pain, in print, 2018.
+[Weyer-Menkhoff et al., 2018]  Weyer-Menkhoff, I., Thrun, M. C., & Loetsch, J.: Machine-learned analysis of quantitative sensory testing responses to noxious cold stimulation in healthy subjects, European Journal of Pain, Vol. 22(5), pp. 862-874, DOI: 10.1002/ejp.1173, 2018. 
 
+[Kringel et al., 2018]  Kringel, D., Geisslinger, G., Resch, E., Oertel, B. G., Thrun, M. C., Heinemann, S., & Loetsch, J. : Machine-learned analysis of the association of next-generation sequencing based human TRPV1 and TRPA1 genotypes with the sensitivity to heat stimuli and topically applied capsaicin, Pain, in press, doi 10.1097/j.pain.0000000000001222, 2018 
 }
+
+
 \examples{
 data('Lsun3D')
 ##2d projection, without instant visualization of steps
@@ -136,7 +109,10 @@ resUmatrix=GeneratePswarmVisualization(data2,res$ProjectedPoints,res$LC)
 
 }
 \note{
-For interactive Island Generation of an generalized Umatrix  see \code{interactiveGeneralizedUmatrixIsland} function in the package GeneralizedUmatrix.
+For interactive Island Generation of a generalized Umatrix  
+see \code{interactiveGeneralizedUmatrixIsland} function in the package \pkg{ProjectionBasedClustering}.
+
+If you want to verifiy your clustering result externally, you can use \code{Heatmap} or \code{SilhouettePlot} of the CRAN package \pkg{DataVisualizations}.
 }
 \keyword{DBS}
 \keyword{DataBionic}
@@ -158,3 +134,4 @@ For interactive Island Generation of an generalized Umatrix  see \code{interacti
 \keyword{game theory}
 \keyword{projection}
 \keyword{projection method}
+\keyword{ package }
