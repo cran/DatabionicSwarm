@@ -31,6 +31,6 @@ rgl::rgl.close()#please ignore, indicates that this plot should not be saved in 
 library(DatabionicSwarm)
 library(GeneralizedUmatrix)
 Cls=DBSclustering(k=7, Hepta$Data, visualization$Bestmatches, visualization$LC,PlotIt=FALSE)
-GeneralizedUmatrix::plotTopographicMap(visualization$Umatrix,visualization$Bestmatches,Cls)
+GeneralizedUmatrix::plotTopographicMap(visualization$Umatrix,visualization$Bestmatches,Cls,NoLevels=10)
 
 

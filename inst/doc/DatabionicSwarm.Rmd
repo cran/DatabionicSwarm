@@ -53,7 +53,8 @@ projection=Pswarm(InputDistances)
 Here the Generalized Umatrix is calculated using a simplified emergent self-organizing map algorithm. Then, the visualization of Generalized Umatrix is done by a 3D landscape called topographic map with hypsometric tints. Seven valleys are shown resulting in seven main clusters.
 The resulting visualization will be toroidal meaning that the left borders cyclically connects to the right border (and bottom to top). It means there are no "real" borders in this visualizations. Instead, the visualization is "continuous". This can be visualized using the 'Tiled=TRUE' option of 'plotTopographicMap'.
 
-Note, that all visualizations here are small and a low dpi is set in knitr in order to load the vignette faster.
+Note, that the 'NoLevels' option is only set to load this vignette faster and should normally not be set manually. It describes the number contour lines placed relative to the hypsometric tints. All visualizations here are small and a low dpi is set in knitr in order to load the vignette faster.
+
 ```{r,results = "hide",webGL = TRUE }
 library(DatabionicSwarm)
 library(GeneralizedUmatrix)
@@ -69,7 +70,7 @@ In the case of "BestmatchingUnits", the parameter "LC" defines the size of the g
 library(DatabionicSwarm)
 library(GeneralizedUmatrix)
 Cls=DBSclustering(k=7, Hepta$Data, visualization$Bestmatches, visualization$LC,PlotIt=FALSE)
-GeneralizedUmatrix::plotTopographicMap(visualization$Umatrix,visualization$Bestmatches,Cls)
+GeneralizedUmatrix::plotTopographicMap(visualization$Umatrix,visualization$Bestmatches,Cls,NoLevels=10)
 
 ```
 #Second Example: Interactive Approach
