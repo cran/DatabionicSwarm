@@ -1,9 +1,10 @@
-## ----setup, include=FALSE------------------------------------------------
+## ----setup, include=FALSE-----------------------------------------------------
 library(rgl)
 #library(rglwidget) #does not show any pictures in Rmarkdown if rglwidget()  is called after rgl
 setupKnitr()
 knitr::opts_chunk$set(echo = TRUE,
                       fig.align = "center",
+                      message=FALSE,
                       warning = FALSE,
                       webgl = TRUE,
                       dpi=50,
@@ -12,25 +13,38 @@ knitr::opts_chunk$set(echo = TRUE,
                       fig.keep = "all"
                       )
 
-## ----results = "hide"----------------------------------------------------
+## ----results = "hide"---------------------------------------------------------
 library(DatabionicSwarm)
-
 data('Hepta')
-InputDistances=as.matrix(dist(Hepta$Data))
-projection=Pswarm(InputDistances)
+InputDistances = as.matrix(dist(Hepta$Data))
+projection = Pswarm(InputDistances)
 
-## ----results = "hide",webGL = TRUE---------------------------------------
+## ----results = "hide",webGL = TRUE,fig.keep="none"----------------------------
 library(DatabionicSwarm)
 library(GeneralizedUmatrix)
-visualization=GeneratePswarmVisualization(Data = Hepta$Data,projection$ProjectedPoints,projection$LC)
-GeneralizedUmatrix::plotTopographicMap(visualization$Umatrix,visualization$Bestmatches)
-rgl::rgl.close()#please ignore, indicates that this plot should not be saved in Rmarkdown
+visualization = GeneratePswarmVisualization(
+  Data = Hepta$Data, 
+  projection$ProjectedPoints, 
+  projection$LC)
 
+GeneralizedUmatrix::plotTopographicMap(
+  visualization$Umatrix, 
+  visualization$Bestmatches, 
+  NoLevels = 10)
 
-## ----webGL = TRUE--------------------------------------------------------
+## ----webGL = TRUE,fig.keep="none"---------------------------------------------
 library(DatabionicSwarm)
 library(GeneralizedUmatrix)
-Cls=DBSclustering(k=7, Hepta$Data, visualization$Bestmatches, visualization$LC,PlotIt=FALSE)
-GeneralizedUmatrix::plotTopographicMap(visualization$Umatrix,visualization$Bestmatches,Cls,NoLevels=10)
-
+Cls = DBSclustering(
+  k = 7,
+  Hepta$Data,
+  visualization$Bestmatches,
+  visualization$LC,
+  PlotIt = FALSE
+)
+GeneralizedUmatrix::plotTopographicMap(
+  visualization$Umatrix,
+  visualization$Bestmatches,
+  Cls,
+  NoLevels = 10)
 

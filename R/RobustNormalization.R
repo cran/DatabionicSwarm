@@ -1,14 +1,24 @@
-RobustNormalization = function (Data,Centered=FALSE,Capped=FALSE,na.rm=TRUE,WithBackTransformation=FALSE) 
+RobustNormalization = function (Data,Centered=FALSE,Capped=FALSE,na.rm=TRUE,WithBackTransformation=FALSE,pmin=0.01,pmax=0.99) 
 {
+  if(is.data.frame(Data)){
+    warning('Matrix is expected but data.frame is given. Calling as.matrix().')
+    Data=as.matrix(Data)
+  }
 if(isTRUE(na.rm)){
-Data[!is.finite(Data)]=NaN #quantile does not accept inf,-inf
+  # if(!is.data.frame(Data)){
+    Data[!is.finite(Data)]=NaN #quantile does not accept inf,-inf
+  # }else{
+  #   ind=do.call(cbind, lapply(mtcars, is.finite))
+  #   Data[ind]=NaN
+  # }
+   
 }
-  center=NULL
+  center=0
   Denom=NULL
   minX=NULL
   maxX=NULL
   if (is.vector(Data)) {
-    quants = quantile(Data, c(0.01, 0.5, 0.99),na.rm = na.rm)
+    quants = quantile(Data, c(pmin, 0.5, pmax),na.rm = na.rm)
     minX = quants[1]
     maxX = quants[3]
     Denom=maxX - minX
@@ -26,7 +36,7 @@ Data[!is.finite(Data)]=NaN #quantile does not accept inf,-inf
       }
     }else{
       if(Capped){
-        quants = quantile(Data, c(0.01, 0.5, 0.99),na.rm = na.rm)
+        quants = quantile(Data, c(pmin, 0.5, pmax),na.rm = na.rm)
         minX = quants[1]
         maxX = quants[3]
         Data[Data>maxX]=maxX
@@ -46,31 +56,42 @@ Data[!is.finite(Data)]=NaN #quantile does not accept inf,-inf
       minX=c()
       maxX=c()
       Denom=c()
-      center=c()
+      center=rep(0,cols)
       for (i in 1:cols) {
-        xtrans = RobustNormalization(Data = as.vector(Data[, i]),Centered = Centered,Capped = Capped,na.rm = na.rm,WithBackTransformation=WithBackTransformation)
+        xtrans = RobustNormalization(Data = as.vector(Data[, i]),Centered = Centered,Capped = Capped,na.rm = na.rm,WithBackTransformation=WithBackTransformation,pmin=pmin,pmax=pmax)
         DataOut=cbind(DataOut,as.matrix(xtrans$TransformedData))
-        minX=cbind(minX,xtrans$MinX)
-        maxX=cbind(maxX,xtrans$MaxX)
-        Denom=cbind(Denom,xtrans$Denom)
-        center=cbind(center,xtrans$Center)
+        minX[i]=xtrans$MinX
+        maxX[i]=xtrans$MaxX
+        Denom[i]=xtrans$Denom
+        center[i]=xtrans$Center
+      }
+      names=colnames(Data)
+      if(!is.null(names)){
+        colnames(DataOut) = names
+        names(minX) =  names
+        names(maxX) =  names
+        names(Denom)=  names
+        names(center)=  names
       }
       
       return(list(TransformedData=DataOut,MinX=minX,MaxX=maxX,Denom=Denom,Center=center))
     }else{
-    cols = ncol(Data)
-    xtrans = Data
-    for (i in 1:cols) {
-      xtrans[, i] = RobustNormalization(as.vector(Data[, i]),Centered,Capped,na.rm,WithBackTransformation=WithBackTransformation)
-    }
-
+      cols = ncol(Data)
+      xtrans = Data
+      for (i in 1:cols) {
+        xtrans[, i] = RobustNormalization(as.vector(Data[, i]),Centered,Capped,na.rm,WithBackTransformation=WithBackTransformation,pmin=pmin,pmax=pmax)
+      }
+      names=colnames(Data)
+      if(!is.null(names))
+        colnames(xtrans)=names
+      
       return(xtrans)
     }
   }
   else {
     tryCatch({
       warning("Data is not a vector or a matrix. Trying as.matrix")
-      return(RobustNormalization(as.matrix(Data),Centered,Capped,na.rm))
+      return(RobustNormalization(as.matrix(Data),Centered,Capped,na.rm,pmin=pmin,pmax=pmax))
     }, error = function(e) {
       stop("It did not work")
     })
