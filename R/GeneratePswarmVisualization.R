@@ -20,7 +20,7 @@ GeneratePswarmVisualization=function(Data,ProjectedPoints,LC,PlotIt=FALSE,Comput
 #											It real grid size is predfined by Pswarm, but you may choose a factor x*res$LC if you so desire.
 #											Therefore, The resulting grid size is given back here.
 #author MT 03/16
-  Data=checkInputDistancesOrData(Data)
+  Data=checkInputDistancesOrData(Data,funname='GeneratePswarmVisualization')
   
 if(missing(LC)){
   LC=ceiling(apply(ProjectedPoints,2,max))+1
@@ -153,9 +153,9 @@ d=ncol(Data) #NumberOfweights
   print('Initializing sESOM algorithm')
  
   # BestMatches werden festgehalten
-  for(i in c(1:nrow(BMUs))){
-      wts[BMUs[i,1],BMUs[i,2],] = Data[i,]
-  }
+  #for(i in c(1:nrow(BMUs))){
+  #    wts[BMUs[i,1],BMUs[i,2],] = Data[i,]
+  #}
   #Jeder Radius sollte min. 1 Eppoche durchlaufen werden, mehr als eine Eppoche fuehrte nicht zu mehr Emergenz
   # s. auch Experimente mit iUmatrix(), wo eine Umatrix als Video pro Eppoche bei diverser Parameterwahl gezeichnet wird
   epochs=HeuristischerParameter
@@ -174,9 +174,14 @@ vec=pmax(seq(from=AnfangsRadius-1,by=-1,length.out = HeuristischerParameter),1)
 
   Umap=calcUmatrixToroid(wts)
 LCnew=c(dim(wts)[1],dim(wts)[2])
-if(PlotIt){
-  requireNamespace("GeneralizedUmatrix")
-  GeneralizedUmatrix::plotTopographicMap(Umap,BMUs,NoLevels=10)
+
+gplotres=FALSE
+if(isTRUE(PlotIt)){
+  requireNamespace("GeneralizedUmatrix",quietly = TRUE)
+  #GeneralizedUmatrix::plotTopographicMap(Umap,BMUs,NoLevels=10)
+  Cls=rep(1,nrow(BMUs))
+  gplotres=TopviewTopographicMap(GeneralizedUmatrix = Umap,BestMatchingUnits = BMUs,Cls = Cls,Tiled =TRUE,BmSize =8) #Sondern Gebirge=Unbekannte Orte der U-Matrix
+  print(gplotres)
 }
-return(list(Bestmatches=BMUs,Umatrix=Umap,WeightsOfNeurons=wts,GridPoints=Points,LC=LCnew))
+return(list(Bestmatches=BMUs,Umatrix=Umap,WeightsOfNeurons=wts,GridPoints=Points,LC=LCnew,PlotlyHandle=gplotres))
 }

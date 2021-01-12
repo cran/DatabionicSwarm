@@ -1,7 +1,4 @@
 ## ----setup, include=FALSE-----------------------------------------------------
-library(rgl)
-#library(rglwidget) #does not show any pictures in Rmarkdown if rglwidget()  is called after rgl
-setupKnitr()
 knitr::opts_chunk$set(echo = TRUE,
                       fig.align = "center",
                       message=FALSE,
@@ -13,6 +10,21 @@ knitr::opts_chunk$set(echo = TRUE,
                       fig.keep = "all"
                       )
 
+## ----echo = FALSE-------------------------------------------------------------
+if (!requireNamespace("rmarkdown") || !rmarkdown::pandoc_available("1.12.3")) {
+  warning("This vignette requires pandoc version 1.12.3; code will not run in older versions.")
+  knitr::opts_chunk$set(eval = FALSE)
+}
+
+## ----echo = FALSE-------------------------------------------------------------
+if (!requireNamespace("rgl")) {
+  warning("This vignette requires the package rgl; code will not run without this package.")
+  knitr::opts_chunk$set(eval = FALSE)
+}else{
+  library(rgl)
+  setupKnitr()
+}
+
 ## ----results = "hide"---------------------------------------------------------
 library(DatabionicSwarm)
 data('Hepta')
@@ -22,14 +34,14 @@ projection = Pswarm(InputDistances)
 ## ----results = "hide",webGL = TRUE,fig.keep="none"----------------------------
 library(DatabionicSwarm)
 library(GeneralizedUmatrix)
-visualization = GeneratePswarmVisualization(
+genUmatrixList = GeneratePswarmVisualization(
   Data = Hepta$Data, 
   projection$ProjectedPoints, 
   projection$LC)
 
 GeneralizedUmatrix::plotTopographicMap(
-  visualization$Umatrix, 
-  visualization$Bestmatches, 
+  genUmatrixList$Umatrix, 
+  genUmatrixList$Bestmatches, 
   NoLevels = 10)
 
 ## ----webGL = TRUE,fig.keep="none"---------------------------------------------
@@ -38,13 +50,13 @@ library(GeneralizedUmatrix)
 Cls = DBSclustering(
   k = 7,
   Hepta$Data,
-  visualization$Bestmatches,
-  visualization$LC,
+  genUmatrixList$Bestmatches,
+  genUmatrixList$LC,
   PlotIt = FALSE
 )
 GeneralizedUmatrix::plotTopographicMap(
-  visualization$Umatrix,
-  visualization$Bestmatches,
+  genUmatrixList$Umatrix,
+  genUmatrixList$Bestmatches,
   Cls,
   NoLevels = 10)
 

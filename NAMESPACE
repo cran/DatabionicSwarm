@@ -13,6 +13,7 @@ export(RelativeDifference)
 export(RobustNormalization)
 export(RobustNorm_BackTrafo)
 
+
 import(Rcpp)
 
 importFrom("deldir","deldir")
@@ -21,7 +22,7 @@ useDynLib(DatabionicSwarm, .registration = TRUE)
 importFrom("graphics", "axis", "box", "par", "plot.new", "points",
              "title","plot")
 importFrom("utils", "tail","getSrcDirectory")
-importFrom("GeneralizedUmatrix","plotTopographicMap")
+importFrom("GeneralizedUmatrix","plotTopographicMap","TopviewTopographicMap")
 importFrom("utils", "head")
 #importFrom(ABCanalysis,"ABCRemoveSmallYields","ABCanalysis")
 #importFrom(AdaptGauss,"ParetoRadius")#
@@ -29,3 +30,4 @@ importFrom("utils", "head")
   importFrom("utils", "setTxtProgressBar", "txtProgressBar")
   
  importFrom("utils", "packageVersion")
+importFrom("stats", "order.dendrogram")
