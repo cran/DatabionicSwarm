@@ -1,3 +1,18 @@
+Version 1.1.6 (2022-11-26 CRAN)
+    o Corrected notes of CRAN derived from documentation
+    o Bugfixes in internal procedure of computing unique points for Delaunay4Points. Procedue is now available to the user as the function UniquePoints()	
+    o Print() replaced with message() in Pswarm()
+	
+Version 1.1.5 (2020-10-28 CRAN)
+    o Improved documentation significantly.
+    o Pswarm now falls back to the dist function if the package parallelDist is not installed.
+    o sESOM agorithm for the generalized Umatrix improved and is described now in the MethodsX publication of [Thrun/Ultsch, 2020]. It differs from the first publication of [Thrun, 2018].
+	
+Version 1.1.4 (2020-02-29 GitHub)
+    o Bugfix:  checkInputDistancesOrData, DBSclustering, Pswarm, setGridSize and ShortestGraphPathsC: using unname in isSymmetric to check correctly of symmetric distance matrix
+    o checkInputDistancesOrData is now used in RobustNormalization and Pswarm correctly and indicates in which function the errors lies.
+    o Improvement: DBSclustering now provides the same colored branches (depending on frequency) as the topograpghcMap visualization with default colors. This makes a direct comparison of cluster structres more evident as it is clearly presented which projected point belongs to which high-dimensional point in the dendrogram.
+
 Version 1.1.3 (2020-02-02 CRAN)
     o Bugfix: deleted dependcy rowr because it was taken down from CRAN.
 
@@ -29,4 +44,4 @@ Version 1.0.4 (Local)
 	o Vignette added
     
 Version 1.0.3 (2018-05-06 CRAN)
-    o Added distance methods of ParallelCpp package
+    o Added distance methods of parallelDist package

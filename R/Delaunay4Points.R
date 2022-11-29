@@ -1,22 +1,22 @@
 Delaunay4Points <- function(Points, IsToroid = TRUE,Grid=NULL,PlotIt=FALSE,Gabriel=FALSE){
-# Delaunay=Delaunay4Points(BestMatches, IsToroid,Grid,PlotIt)$Delaunay
-# Calculates the adjacency matrix of the delaunay graph for bestmatches in tiled form if BMs are located on a toroid grid
-#
-# INPUT
-# BestMatches[1:n,1:3]            n by 3 matrix containing the BMKey, X and Y coordinates of the n BestMatches
-#                                 BestMatches NEED NOT BE UNIQUE!
-#                                 however, there is an edge in the Deaunay between duplicate points!  
-#
-# OPTIONAL
-# Grid[2]                         A vector of length 2, containing the number of lines and columns of the Grid
-# IsToroid                        logical, indicating if BM's are on a toroid grid. Default is True
-# PlotIt                          Set PlotIt=TRUE, if you want to see the Plots
-# OUTPUT
-# DelaunayAdjazenzMatrix[1:n,1:n]  adjacency matrix of the Delaunay-Graph
-#
-# NOTE: Im Unterschied zu Delauany4Bestmatches hier in cartesischer Definition, Testweise auch Gabriel Graph moeglich
-# 	     Die Unterfunktionen wurden fuer diesen einen Zweck noch nachoptimiert  
-# authors:  MT 03/16
+  # Delaunay=Delaunay4Points(BestMatches, IsToroid,Grid,PlotIt)$Delaunay
+  # Calculates the adjacency matrix of the delaunay graph for bestmatches in tiled form if BMs are located on a toroid grid
+  #
+  # INPUT
+  # BestMatches[1:n,1:3]            n by 3 matrix containing the BMKey, X and Y coordinates of the n BestMatches
+  #                                 BestMatches NEED NOT BE UNIQUE!
+  #                                 however, there is an edge in the Deaunay between duplicate points!  
+  #
+  # OPTIONAL
+  # Grid[2]                         A vector of length 2, containing the number of lines and columns of the Grid
+  # IsToroid                        logical, indicating if BM's are on a toroid grid. Default is True
+  # PlotIt                          Set PlotIt=TRUE, if you want to see the Plots
+  # OUTPUT
+  # DelaunayAdjazenzMatrix[1:n,1:n]  adjacency matrix of the Delaunay-Graph
+  #
+  # NOTE: Im Unterschied zu Delauany4Bestmatches hier in cartesischer Definition, Testweise auch Gabriel Graph moeglich
+  # 	     Die Unterfunktionen wurden fuer diesen einen Zweck noch nachoptimiert  
+  # authors:  MT 03/16
   if(is.list(Points))
     stop('Points is a list not a matrix')
   if (ncol(Points) > 3)
@@ -60,86 +60,18 @@ Delaunay4Points <- function(Points, IsToroid = TRUE,Grid=NULL,PlotIt=FALSE,Gabri
     
     # uses packages deldir
     
-    uniquePoints_hlp <- function(data) {
-      # U <- uniquePoints(data)
-      # return only the unique points in data
-      #
-      # INPUT
-      # data[1:n,1:d]   The vector/matrix with n data points of dimension d
-      #				          the points are in the  rows
-      #
-      # OUTPUT
-      # a list U containg:
-      # UniqueData  <- U$unique[1:u,1:d]       the data points  without duplicate points
-      # UniqueInd   <- U$sortind[1:u]		       an index vector such that unique ==  data[sortind,]
-      # Uniq2DataInd<- U$mergeind[1:n] 	       an index vector such that   data ==  unique[mergeind,]
-      # IsDuplicate <- U$IsDuplicate[1:n,1:n]  for i!=j IsDuplicate[i,j]== 1  iff data[i,] == data[j,]    IsDuplicate[i,i]==0
-      
-      eps <-
-        0.0000000001         # ab dieser Distanz zwischen 2 punkten sind diese identisch
-      
-      if (inherits(data,"matrix")) {
-        # If data is a vector.
-        data <- as.matrix(data)
-      }
-      AnzPoints <-
-        nrow(data)            # soviele punkte in den Daten
-      rownames(data) <-
-        c(1:AnzPoints)   # gib den Zeilen als namen ihren zeilennummer
-      dists <-
-        as.matrix(dist(data))     # Distance with diagonal = 0.
-      IsDuplicate = (dists < eps) * 1 - diag(AnzPoints)
-      dists <-
-        dists - (dists * upper.tri(dists, diag = T)) + upper.tri(dists, diag = T) # ??? wozu das denn?
-      
-      if (length(which(dists < eps)) > 0) {
-        # Duplicates found.
-        ind <-
-          which(dists < eps, arr.ind = TRUE) # Get indices of duplicates.
-        #    rownames(ind) <- ind[,1]
-        ind <-
-          ind[as.character(unique(ind[, 1])), ]  # remove multiples in the duplicates, so that only their first occurance remains. Example: if 1, 3, 4, and 6 are all duplicates of the same value, ind will contain [3,1], [4,1], [4,3], [6,1], [6,3] and [6,4]. This removes all except [3,1], [4,1] and [6,1]
-        uniquedata <-
-          data[-as.matrix(ind)[, 1], ] #MT: Korrektur, falls genau eine Dopplung besteht
-        mergeind <- c(1:AnzPoints)
-        indhelp <- c(1:nrow(uniquedata))
-        names(indhelp) <- rownames(uniquedata)
-        mergeind[as.numeric(names(indhelp))] <- indhelp
-        if (ncol(as.matrix(ind)) == 1) {
-          mergeind[as.matrix(ind)[, 1]] = as.matrix(ind)[, 1]#MT: Schnellschuss Workaround
-        } else{
-          mergeind[ind[, 1]] <-
-            mergeind[ind[, 2]] # Dataindex with marked duplicates
-        }
-        return(
-          list(
-            "unique" = as.matrix(uniquedata),
-            "sortind" = as.numeric(rownames(uniquedata)),
-            "mergeind" = mergeind,
-            IsDuplicate = IsDuplicate
-          )
-        )
-      } else{
-        # keine duplikate gefunden
-        return(
-          list(
-            "unique" = unique(data),
-            "sortind" = c(1:AnzPoints),
-            "mergeind" = c(1:AnzPoints),
-            IsDuplicate = IsDuplicate
-          )
-        )
-      }# end   if(length(which(dists<eps))>0){ # Duplicates found.
-    }# end
-    
+   
     # Punkte unique machen
-    unique = uniquePoints_hlp(cbind(X, Y))
-    UniqXY = unique$unique
-    UniqueInd   = unique$sortind
-    Uniq2DataInd = unique$mergeind
-    IsDuplicate = unique$IsDuplicate
-    UniqX =  UniqXY[, 1]
-    UniqY =  UniqXY[, 2]
+    unique       = UniquePoints(cbind(X, Y))
+    UniqXY       = unique$Unique
+    UniqueInd    = unique$UniqueInd
+    Uniq2DataInd = unique$Uniq2DatapointsInd
+    IsDuplicate  = unique$IsDuplicate
+    UniqX        =  UniqXY[, 1]
+    UniqY        =  UniqXY[, 2]
+    # Der Index muss richtig berechnet werden, sonst funktioniert der Zugriff 
+    # auf die Delaunay Matrix nicht richtig (Linie 94)
+    RightIdx     = unlist(lapply(Uniq2DataInd, function(x) which(UniqueInd == x)))
     
     # Delaunay ausrechnen mit deldir
     DeldirOutput = deldir(UniqX , UniqY)  #
@@ -156,9 +88,11 @@ Delaunay4Points <- function(Points, IsToroid = TRUE,Grid=NULL,PlotIt=FALSE,Gabri
         1  #Only Direct neighbours A and B get an one from A to B
     } # end for i neighbours
     
+    
     # jetzt uniqe points wieder auf originale uebertragen
     Delaunay = matrix(0, length(X), length(Y))
-    Delaunay = UniqDelaunay[Uniq2DataInd, Uniq2DataInd]
+    Delaunay = UniqDelaunay[RightIdx, RightIdx]
+    #Delaunay = UniqDelaunay[Uniq2DataInd, Uniq2DataInd]
     Delaunay = Delaunay + IsDuplicate # noch je eine Verbindung zwischen den Doubletten eintragen
     
     # ausgabe zusammenstellen
