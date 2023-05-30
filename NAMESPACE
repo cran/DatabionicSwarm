@@ -1,3 +1,7 @@
+useDynLib("DatabionicSwarm", .registration = TRUE)
+importFrom(Rcpp, evalCpp)
+importFrom(RcppParallel, RcppParallelLibs)
+
 export(ClusteringAccuracy)
 export(DBSclustering)
 export(Delaunay4Points)
@@ -14,11 +18,11 @@ export(RobustNormalization)
 export(RobustNorm_BackTrafo)
 export(UniquePoints)
 
+
 import(Rcpp)
 
 importFrom("deldir","deldir")
 importFrom('stats', "hclust","cutree","as.dendrogram","dist", "quantile", "runif", "as.dist", "median")
-useDynLib(DatabionicSwarm, .registration = TRUE)
 importFrom("graphics", "axis", "box", "par", "plot.new", "points",
              "title","plot")
 importFrom("utils", "tail","getSrcDirectory")
