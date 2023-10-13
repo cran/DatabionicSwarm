@@ -36,10 +36,10 @@ GfKl 2008, pp, 505-511, 2008.
 Michael Thrun
 }
 \note{
-It can be combined with the \code{DelaunayClassificationError} if a clear baseline is defined.
+It can be combined with the \code{GabrielClassificationError} if a clear baseline is defined.
 }
 \seealso{
-\code{\link{DelaunayClassificationError}}
+\code{\link[DRquality]{GabrielClassificationError}}
 }
 \examples{
 x=c(1:5)

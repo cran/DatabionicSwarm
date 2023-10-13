@@ -27,17 +27,17 @@ if (!requireNamespace("rgl")) {
 
 ## ----results = "hide"---------------------------------------------------------
 library(DatabionicSwarm)
+library(GeneralizedUmatrix)
 data('Hepta')
 InputDistances = as.matrix(dist(Hepta$Data))
 projection = Pswarm(InputDistances)
 
 ## ----results = "hide",webGL = TRUE,fig.keep="none"----------------------------
-library(DatabionicSwarm)
-library(GeneralizedUmatrix)
 genUmatrixList = GeneratePswarmVisualization(
   Data = Hepta$Data, 
   projection$ProjectedPoints, 
-  projection$LC)
+  projection$LC,
+  Parallel=FALSE)#CRAN guidelines do not allow =TRUE in vignette
 
 GeneralizedUmatrix::plotTopographicMap(
   genUmatrixList$Umatrix, 
@@ -45,18 +45,13 @@ GeneralizedUmatrix::plotTopographicMap(
   NoLevels = 10)
 
 ## ----webGL = TRUE,fig.keep="none"---------------------------------------------
-library(DatabionicSwarm)
-library(GeneralizedUmatrix)
-Cls = DBSclustering(
-  k = 7,
-  Hepta$Data,
-  genUmatrixList$Bestmatches,
-  genUmatrixList$LC,
-  PlotIt = FALSE
-)
-GeneralizedUmatrix::plotTopographicMap(
-  genUmatrixList$Umatrix,
-  genUmatrixList$Bestmatches,
-  Cls,
-  NoLevels = 10)
+Cls = DBSclustering(k = 7,
+                    DataOrDistance = Hepta$Data,
+                    BestMatches = genUmatrixList$Bestmatches,
+                    LC = genUmatrixList$LC,
+                    PlotIt = FALSE)
+GeneralizedUmatrix::plotTopographicMap(genUmatrixList$Umatrix,
+                                       genUmatrixList$Bestmatches,
+                                       Cls,
+                                       NoLevels = 10)
 

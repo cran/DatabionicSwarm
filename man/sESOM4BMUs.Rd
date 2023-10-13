@@ -20,7 +20,7 @@ ProjectedPoints2Grid()}
 ListAsEsomNeurons()}
 \item{toroid}{TRUE/FALSE - topology of points}
 \item{CurrentRadius}{number betweeen 1 to x}
-\item{ ComputeInR}{=T: Rcode, =F Cpp Code}{number betweeen 1 to x}
+\item{ ComputeInR}{=TRUE: Rcode, =FALSE: Cpp}
 \item{Parallel}{Optional, =TRUE: Parallel C++ implementation, =FALSE C++ implementation}
 }
 \details{

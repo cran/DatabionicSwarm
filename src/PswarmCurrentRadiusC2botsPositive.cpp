@@ -138,7 +138,7 @@ List PswarmCurrentRadiusC2botsPositive(ComplexVector AllDataBotsPosOld,
   NumericVector Dy(DBAnzahl);
   NumericVector D1(DBAnzahl);
   NumericVector D2(DBAnzahl);
-
+  
   //NumericVector CurrentKeyBot(leng);
   NumericVector ChosenForJump(nBots);
   NumericVector AllDataBotsPosReal(DBAnzahl);
@@ -166,7 +166,7 @@ List PswarmCurrentRadiusC2botsPositive(ComplexVector AllDataBotsPosOld,
   NumericVector stressverlauf;
   NumericVector KeySteigung(steigungsverlaufind);
   NumericVector stresstail(steigungsverlaufind);
-  double epsilon=0.0001;//Steigungsgenauigkeit, steigung nimmt kaum mehr ab
+  double epsilon=0.01;//Steigungsgenauigkeit, steigung nimmt kaum mehr ab
   for(int i=0;i<steigungsverlaufind;i++)
     KeySteigung(i)=i;
   

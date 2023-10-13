@@ -1,5 +1,12 @@
+Version 1.2.1 (2023-10-10 CRAN)   
+   o Moved RobustNormalization and RobustNorm_BackTrafo to DataVisualizations package available on CRAN
+   o Corrected and extended UniquePoints   
+   o ClusteringAccuracy deleted. An improved version called ClusterAccuracy can be found in the FCPS package available on CRAN
+   o DelaunayClassifiationError deleted. An new function with a better principle for evalaution the quality of DR methods called GabrielClassificationError can be found in the DRquality package available on CRAN.
+		
 Version 1.2.0 (2023-05-29 CRAN)
     o  GeneratePswarmVisualization reimplemented in a parallelized Cpp function, Pswarm will follow soon.
+
     
 Version 1.1.7 (2023-01-31 GitHub)
     o Bugfix in UniquePoints
