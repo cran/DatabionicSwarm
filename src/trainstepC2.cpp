@@ -14,6 +14,8 @@ struct Delta3DWeightsC : public Worker {    // Worker for parallelization
   const int Columns;
   const int Weights;
   const RVector<double> neighmatrix;
+  const int Radius;
+  const int NoCases;
   
   // output to write to
   RVector<double> esom;
@@ -25,21 +27,41 @@ struct Delta3DWeightsC : public Worker {    // Worker for parallelization
                   const int Columns,
                   const int Weights,
                   const NumericVector neighmatrix,
+                  const int Radius,
+                  const int NoCases,
                   NumericVector esom):
     DataSample(DataSample),
     Lines(Lines),
     Columns(Columns),
     Weights(Weights),
     neighmatrix(neighmatrix),
+    Radius(Radius),
+    NoCases(NoCases),
     esom(esom) {}
   // function call operator that work for the specified range (begin/end)    esomwts = esomwts - (neighmatrix * inputdiff);
   void operator()(std::size_t begin, std::size_t end) {
     for(std::size_t k = begin; k < end; k++){
       for(int j = 0; j < Columns; j++){
         for(int i = 0; i < Weights; i++){
+          
           int tmpIdx1 = i * Columns * Lines + j * Lines + k;
           int tmpIdx2 = j * Lines + k;
-          esom[tmpIdx1] = esom[tmpIdx1] - (neighmatrix[tmpIdx2] * (esom[tmpIdx1] - DataSample[i]));
+          
+          if(NoCases < 2501){ // for small number of samples the learning rate is constant
+            esom[tmpIdx1] = esom[tmpIdx1] - (neighmatrix[tmpIdx2] * (esom[tmpIdx1] - DataSample[i]));
+          }else{
+            // in future also adjust radius thresholds depending on gridsize
+            if(Radius > 16){
+              esom[tmpIdx1] = esom[tmpIdx1] - (neighmatrix[tmpIdx2] * (esom[tmpIdx1] - DataSample[i]));
+            }else if (Radius <= 16 && Radius > 8){
+              esom[tmpIdx1] = esom[tmpIdx1] - 0.75 * (neighmatrix[tmpIdx2] * (esom[tmpIdx1] - DataSample[i]));
+            }else if (Radius <= 8 && Radius > 4){
+              esom[tmpIdx1] = esom[tmpIdx1] - 0.5 * (neighmatrix[tmpIdx2] * (esom[tmpIdx1] - DataSample[i]));
+            }else{
+              esom[tmpIdx1] = esom[tmpIdx1] - 0.1 * (neighmatrix[tmpIdx2] * (esom[tmpIdx1] - DataSample[i]));
+            }
+          }
+          
         }
       }
     }
@@ -51,13 +73,16 @@ struct Delta3DWeightsC : public Worker {    // Worker for parallelization
 NumericVector RcppParallelDelta3DWeights(NumericVector esom,
                                          NumericVector DataSample,
                                          NumericVector neighmatrix,
-                                         int Lines, int Columns, int Weights){
+                                         int Lines, int Columns, int Weights,
+                                         int Radius, int NoCases){
   //NumericVector inputdiff(esom);
   Delta3DWeightsC delta3DWeightsC(DataSample,                   // create the worker
                                   Lines,
                                   Columns,
                                   Weights,
                                   neighmatrix,
+                                  Radius,
+                                  NoCases,
                                   esom);
   parallelFor(0, Lines, delta3DWeightsC);                           // call it with parallelFor
   return esom;
@@ -210,7 +235,6 @@ struct NeighborMatrix : public Worker {    // Worker for parallelization
   // inputs to read from
   const RMatrix<double> OutputDistances;
   const double Radius;
-  const double Lines;
   const double Columns;
   
   // output to write to
@@ -220,12 +244,10 @@ struct NeighborMatrix : public Worker {    // Worker for parallelization
   // can be automatically converted to form the Rcpp matrix type)
   NeighborMatrix(const NumericMatrix OutputDistances,
                  const double Radius,
-                 const double Lines,
                  const double Columns,
                  NumericMatrix neighmatrix):
     OutputDistances(OutputDistances),
     Radius(Radius),
-    Lines(Lines),
     Columns(Columns),
     neighmatrix(neighmatrix) {}
   // function call operator that work for the specified range (begin/end)
@@ -253,7 +275,6 @@ NumericMatrix RcppParallelNeighborMatrix(NumericMatrix OutputDistances,
   //NumericVector inputdiff(esom);
   NeighborMatrix neighborMatrix(OutputDistances,                   // create the worker
                                 Radius,
-                                Lines,
                                 Columns,
                                 neighmatrix);
   parallelFor(0, Lines, neighborMatrix);                           // call it with parallelFor
@@ -270,7 +291,8 @@ NumericVector trainstepC2(NumericVector esomwts,
                           double Columns,
                           double Weights,
                           double Radius,
-                          bool toroid) {
+                          bool toroid,
+                          int NoCases){
 
   NumericVector DataSample(DataSampled.rows());
   NumericVector bmpos(BMUsampled.rows());
@@ -325,7 +347,9 @@ NumericVector trainstepC2(NumericVector esomwts,
                                          neighmatrix,
                                          Lines,
                                          Columns,
-                                         Weights);
+                                         Weights,
+                                         Radius,
+                                         NoCases);
   }
   return(esomwts);
 }

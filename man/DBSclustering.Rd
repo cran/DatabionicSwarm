@@ -56,7 +56,7 @@ However, as written above, clustering and visualization can be applied
 independently of each other. In this case the places of Lines L and Columns C
 are switched because Lines is a value slightly above the maximum of the x-coordinates and Columns is a value slightly above the maximum of the y-coordinates  of ProjectedPoint. 
 Hence, one should give  \code{\link{DBSclustering}} the argument
-\code{LC[2,1]} as shown in example 2. 
+\code{LC} as shown in example 2. 
 
 Often it is better to mark the outliers  manually after the prozess of
 clustering and sometimes a clustering can be improved through human interaction
@@ -92,41 +92,38 @@ available on CRAN.
 data("Lsun3D")
 Data=Lsun3D$Data
 InputDistances=as.matrix(dist(Data))
-\donttest{projection=Pswarm(InputDistances)}
+\donttest{
+projection=Pswarm(InputDistances)
+}
 ## Example One
-\donttest{genUmatrixList=GeneratePswarmVisualization(Data,
-
+\donttest{
+genUmatrixList=GeneratePswarmVisualization(Data,
 projection$ProjectedPoints,projection$LC)
-
-Cls=DBSclustering(k=3, Data, 
-
-genUmatrixList$Bestmatches, genUmatrixList$LC,PlotIt=TRUE)
+Cls=DBSclustering(k=3, Data, genUmatrixList$Bestmatches,
+genUmatrixList$LC,PlotIt=TRUE)
 }
 
 ## Example Two
 \donttest{#automatic Clustering without GeneralizedUmatrix visualization
-Cls=DBSclustering(k=3, Data, 
-
-projection$ProjectedPoints, projection$LC[c(2,1)],PlotIt=TRUE)
+Cls=DBSclustering(k=3, Data, projection$ProjectedPoints,projection$LC,
+PlotIt=TRUE)
 }
 \dontrun{
 ## Example Three
 ## Sometimes an automatic Clustering can be improved 
-## thorugh an interactive approach, 
+## through an interactive approach, 
 ## e.g. if Outliers exist (see [Thrun/Ultsch, 2017])
 library(ProjectionBasedClustering)
 Cls2=ProjectionBasedClustering::interactiveClustering(genUmatrixList$Umatrix, 
 genUmatrixList$Bestmatches, Cls)
 }
 \dontshow{
-data2=matrix(runif(n = 100),10,10)
+data2=matrix(runif(n = 50),10,5)
 distance=as.matrix(dist(data2))
-res2=Pswarm(distance,LC = c(10,12))
-Cls=DBSclustering(k=2, data2, 
-
-res2$ProjectedPoints, res2$LC[c(2,1)],PlotIt=FALSE)
+res2=Pswarm(distance, LC = c(10,12))
+Cls=DBSclustering(k=2, data2, res2$ProjectedPoints, res2$LC,
+PlotIt=FALSE)
 }
-
 }
 \keyword{DBS}
 \keyword{swarm}

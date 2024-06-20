@@ -9,8 +9,12 @@ DijkstraSSSP <- function(Adj, Costs, source) {
     .Call(`_DatabionicSwarm_DijkstraSSSP`, Adj, Costs, source)
 }
 
-PswarmCurrentRadiusC2botsPositive <- function(AllDataBotsPosOld, Radius, DataDists, IndPossibleDBPosR, RadiusPositionsschablone, pp, Nullpunkt, Lines, Columns, nBots, limit, steigungsverlaufind, StressConstAditiv, debug) {
-    .Call(`_DatabionicSwarm_PswarmCurrentRadiusC2botsPositive`, AllDataBotsPosOld, Radius, DataDists, IndPossibleDBPosR, RadiusPositionsschablone, pp, Nullpunkt, Lines, Columns, nBots, limit, steigungsverlaufind, StressConstAditiv, debug)
+PswarmRadiusParallel <- function(DataBotsPos, DataDists, AllallowedDBPosR0, IndPossibleDBPosRe, IndPossibleDBPosIm, Lines, Columns, Radius, NumAllDB, NumChoDB, NumFreeShape1, NumJumps, Origin1, Origin2, Happiness, MinIterations, HappinessInclination, Eps, debug) {
+    .Call(`_DatabionicSwarm_PswarmRadiusParallel`, DataBotsPos, DataDists, AllallowedDBPosR0, IndPossibleDBPosRe, IndPossibleDBPosIm, Lines, Columns, Radius, NumAllDB, NumChoDB, NumFreeShape1, NumJumps, Origin1, Origin2, Happiness, MinIterations, HappinessInclination, Eps, debug)
+}
+
+PswarmRadiusSequential <- function(AllDataBotsPosOld, Radius, DataDists, IndPossibleDBPosR, RadiusPositionsschablone, pp, Nullpunkt, Lines, Columns, nBots, limit, steigungsverlaufind, Happiness, debug) {
+    .Call(`_DatabionicSwarm_PswarmRadiusSequential`, AllDataBotsPosOld, Radius, DataDists, IndPossibleDBPosR, RadiusPositionsschablone, pp, Nullpunkt, Lines, Columns, nBots, limit, steigungsverlaufind, Happiness, debug)
 }
 
 findPossiblePositionsCsingle <- function(RadiusPositionsschablone, jumplength, alpha, Lines) {
@@ -21,11 +25,19 @@ rDistanceToroidCsingle <- function(AllDataBotsPosX, AllDataBotsPosY, AllallowedD
     .Call(`_DatabionicSwarm_rDistanceToroidCsingle`, AllDataBotsPosX, AllDataBotsPosY, AllallowedDBPosR0, Lines, Columns, Nullpunkt)
 }
 
-trainstepC <- function(vx, vy, DataSampled, BMUsampled, Lines, Columns, Radius, toroid) {
-    .Call(`_DatabionicSwarm_trainstepC`, vx, vy, DataSampled, BMUsampled, Lines, Columns, Radius, toroid)
+rcppPar_DistanceToroid <- function(AllDataBotsPosX, AllDataBotsPosY, AllallowedDBPosR0, Lines, Columns, Nullpunkt) {
+    .Call(`_DatabionicSwarm_rcppPar_DistanceToroid`, AllDataBotsPosX, AllDataBotsPosY, AllallowedDBPosR0, Lines, Columns, Nullpunkt)
 }
 
-trainstepC2 <- function(esomwts, aux, DataSampled, BMUsampled, Lines, Columns, Weights, Radius, toroid) {
-    .Call(`_DatabionicSwarm_trainstepC2`, esomwts, aux, DataSampled, BMUsampled, Lines, Columns, Weights, Radius, toroid)
+sampleC <- function(x, len) {
+    .Call(`_DatabionicSwarm_sampleC`, x, len)
+}
+
+trainstepC <- function(vx, vy, DataSampled, BMUsampled, Lines, Columns, Radius, toroid, NoCases) {
+    .Call(`_DatabionicSwarm_trainstepC`, vx, vy, DataSampled, BMUsampled, Lines, Columns, Radius, toroid, NoCases)
+}
+
+trainstepC2 <- function(esomwts, aux, DataSampled, BMUsampled, Lines, Columns, Weights, Radius, toroid, NoCases) {
+    .Call(`_DatabionicSwarm_trainstepC2`, esomwts, aux, DataSampled, BMUsampled, Lines, Columns, Weights, Radius, toroid, NoCases)
 }
 

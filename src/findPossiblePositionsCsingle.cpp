@@ -25,8 +25,8 @@ ComplexVector findPossiblePositionsCsingle(NumericMatrix RadiusPositionsschablon
     for(int j=0;j<m;j++){
       // Wenn Radius innerhalb von Ringbreite, speicher die #Position
       if((RadiusPositionsschablone(i,j)<=jumplength)){
-      //if((RadiusPositionsschablone(i,j)<=max)&(RadiusPositionsschablone(i,j)>min)){
-//Nullpunkt Verschiebung der erlaubten Indizes bezueglich eines polaren gitters von Mitte zum linken unteren Ecke
+        //if((RadiusPositionsschablone(i,j)<=max)&(RadiusPositionsschablone(i,j)>min)){
+        //Nullpunkt Verschiebung der erlaubten Indizes bezueglich eines polaren gitters von Mitte zum linken unteren Ecke
         // In R wird ab 1 gezaehlt
         //tmp.r=i-(Lines/2+1); 
         //tmp.i=j-(Lines/2+1);

@@ -66,7 +66,7 @@ projection = Pswarm(InputDistances)
 ```
 
 ## Second Module: Generalized Umatrix
-Here the Generalized Umatrix is calculated using a simplified emergent self-organizing map algorithm [Thrun/Ultsch, 2020b]. The output is a list (genUmatrixList) of several elements. Then, the visualization of Generalized Umatrix is can be shown by a 3D landscape called topographic map with hypsometric tints using the output of this list named genUmatrixList. 
+Here the Generalized Umatrix is calculated using a simplified emergent self-organizing map algorithm [Thrun/Ultsch, 2020b]. The output is a list (genUmatrixList) of several elements. Then, the visualization of Generalized Umatrix is can be shown by a 3D landscape called topographic map with hypsometric tints using the output of this list named genUmatrixList.
 
 Hypsometric tints are surface colors  that represent ranges of elevation. For the 3D landscape the contour lines are combined with a specific color scale. The color scale is chosen to display various valleys, ridges, and basins: blue colors indicate small distances (sea level), green and brown colors indicate middle distances (low hills), and shades of white colors indicate vast distances (high mountains covered with snow and ice).
 

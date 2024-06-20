@@ -1,5 +1,5 @@
-DBSclustering=function(k,DataOrDistance,BestMatches,LC,StructureType=TRUE,
-                       PlotIt=FALSE,ylab,main,method='euclidean',...){
+DBSclustering=function(k, DataOrDistance, BestMatches, LC, StructureType=TRUE,
+                       PlotIt=FALSE, ylab, main, method='euclidean', ...){
   #Cls=DBSclustering(k,Data,BestMatches,LC,StructureType=TRUE,PlotIt=F,method='euclidean')
   # automated Clustering approach of the DataBionicSwarm with abstact U distances
   # INPUT
@@ -54,7 +54,7 @@ DBSclustering=function(k,DataOrDistance,BestMatches,LC,StructureType=TRUE,
   }# end if(isSymmetric(DataOrDists))
   
   GabrielGraph = FALSE                                                          # Gabriel graph immer schlechter...
-  GOutput      = Delaunay4Points(Points   = BestMatches, LC = LC[c(2,1)],
+  GOutput      = Delaunay4Points(Points   = BestMatches, LC = LC,
                                  IsToroid = TRUE, PlotIt = FALSE,
                                  Gabriel = GabrielGraph)
   if(!is.matrix(GOutput)){

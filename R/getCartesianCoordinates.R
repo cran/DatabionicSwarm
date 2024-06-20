@@ -1,4 +1,5 @@
-getCartesianCoordinates = function(DataBotsPos,GridRadius,GridAngle,QuadOrHexa=T){
+getCartesianCoordinates = function(DataBotsPosRe, DataBotsPosIm,
+                                   GridRadius, GridAngle, QuadOrHexa = TRUE){
   # BMUs = getCartesianCoordinates(DataBotsPos,GridRadius,GridAngle)
   # Transform DataBot Indizes two exac cartesian coordinates on an toroid two dimensional grid.
   #
@@ -19,15 +20,15 @@ getCartesianCoordinates = function(DataBotsPos,GridRadius,GridAngle,QuadOrHexa=T
   #
   # bmu=getCartesianCoordinates(DataBotsPos,GridRadius,GridAngle)
   # ClassPlot(bmu[1,],bmu[2,],cls)
-  DataBotsPosInd = cbind(Re(DataBotsPos),Im(DataBotsPos))
-  bmR   = GridRadius[DataBotsPosInd]
-  bmPhi = GridAngle[DataBotsPosInd]*pi/180    
+  DataBotsPosInd = cbind(DataBotsPosRe, DataBotsPosIm)
+  bmR            = GridRadius[DataBotsPosInd]
+  bmPhi          = GridAngle[DataBotsPosInd]*pi/180    
   if(!QuadOrHexa){
-    bmX=round(bmR*cos(bmPhi),2)
-    bmY=round(bmR*sin(bmPhi),2)
+    bmY = round(bmR*cos(bmPhi),2)
+    bmX = round(bmR*sin(bmPhi),2)
   }else{
-    bmX=bmR*cos(bmPhi)
-    bmY=bmR*sin(bmPhi)
+    bmY = bmR*cos(bmPhi)
+    bmX = bmR*sin(bmPhi)
   }
-  return(BestMatchingUnits=cbind(bmX,bmY))
+  return(BestMatchingUnits=cbind(bmX, bmY))
 }

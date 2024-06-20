@@ -1,5 +1,5 @@
-\name{trainstepC}
-\alias{trainstepC}
+\name{trainstepC2}
+\alias{trainstepC2}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 internal function for s-esom
@@ -8,15 +8,17 @@ internal function for s-esom
 Does the training for fixed bestmatches in one epoch of the sESOM.
 }
 \usage{
-trainstepC(vx,vy, DataSampled,BMUsampled,Lines,Columns, Radius, toroid, NoCases)
+trainstepC2(esomwts,aux, DataSampled,BMUsampled,Lines,Columns, Weights, Radius,
+toroid, NoCases)
 }
 \arguments{
-\item{vx}{array [1:Lines,1:Columns,1:Weights], WeightVectors that will be trained, internally transformed von NumericVector to cube}
-\item{vy}{array [1:Lines,1:Columns,1:2], meshgrid for output distance computation}
+\item{esomwts}{array [1:Lines,1:Columns,1:Weights], WeightVectors that will be trained, internally transformed von NumericVector to cube}
+\item{aux}{array [1:Lines,1:Columns,1:2], meshgrid for output distance computation}
 \item{DataSampled}{NumericMatrix, n cases shuffled Dataset[1:n,1:d] by \code{sample} }
 \item{BMUsampled}{NumericMatrix, n cases shuffled BestMatches[1:n,1:2] by \code{sample} in the same way as \code{DataSampled} }
 \item{Lines}{double, Height of the grid}
 \item{Columns}{double, Width of the grid}
+\item{Weights}{double, number of weights}
 \item{Radius}{double, The current Radius that should be used to define neighbours to the bm}
 \item{toroid}{bool, Should the grid be considered with cyclically connected borders?}
 \item{NoCases}{int, number of samples in the given non-sampled dataset}

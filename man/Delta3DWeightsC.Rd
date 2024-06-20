@@ -2,24 +2,25 @@
 \alias{Delta3DWeightsC}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Intern function
+intern function, do not use yourself
 }
 \description{
-Implementation of the main equation for SOM, ESOM or the sESOM algorithms}
+Delta3DWeightsC
+}
 \usage{
-Delta3DWeightsC(vx,Datasample)
+Delta3DWeightsC(vx, Datasample)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-\item{vx}{ array of weights [1:Lines,1:Columns,1:Weights]}
-\item{Datasample}{NumericVector of one Datapoint[1:n]}
-}
-\details{
-intern function in case of \code{ComputeInR==FALSE} in \code{\link{GeneratePswarmVisualization}},
-see chapter 5.3 of [Thrun, 2018] for generalized Umatrix and especially the \code{sESOM4BMUs} algorithm.
+\item{vx}{Array [1:n,1:m,1:d] of neuron weights on a nxm grid with d dimensional
+weights.}
+\item{Datasample}{One observation of a d-dimensional datapoint.}
 }
 \value{
-modified array of weights [1:Lines,1:Columns,1:]
+\item{vx}{Array [1:n,1:m,1:l]}
+}
+\details{
+Algorithm is described in [Thrun, 2018, p. 95, Listing 8.1].
 }
 \references{
 [Thrun, 2018]  Thrun, M. C.: Projection Based Clustering through Self-Organization and Swarm Intelligence, doctoral dissertation 2017, Springer, Heidelberg, ISBN: 978-3-658-20539-3, \doi{10.1007/978-3-658-20540-9}, 2018. 
@@ -27,3 +28,6 @@ modified array of weights [1:Lines,1:Columns,1:]
 \author{
 Michael Thrun
 }
+\keyword{swarm}
+\keyword{nash}
+\keyword{polar}

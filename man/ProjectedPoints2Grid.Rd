@@ -7,15 +7,14 @@ Transforms ProjectedPoints to a grid
 quantized xy cartesianncoordinates of ProjectedPoints
 }
 \usage{
-ProjectedPoints2Grid(ProjectedPoints, Lines, Columns,PlotIt=FALSE, Cls)
+ProjectedPoints2Grid(ProjectedPoints, Lines, Columns, PlotIt=FALSE, Cls)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-\item{ProjectedPoints}{[1:n,1:2] numeric matrix of cartesian xy coordinates}
+\item{ProjectedPoints}{[1:n,1:2] matrix of cartesian xy coordinates}
 \item{Lines}{double, length of small side of the rectangular grid}
 \item{Columns}{double, length of big side of the rectangular grid}
 \item{PlotIt}{optional, bool, shows the result if TRUE}
-\item{Cls}{[1:n] numeric vector of classes for each projected point}
+\item{Cls}{Numeric vector containing the classification vector.}
 }
 \details{
 intern function, described in [Thrun, 2018, p.47]

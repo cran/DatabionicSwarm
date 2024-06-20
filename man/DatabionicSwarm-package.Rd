@@ -47,7 +47,6 @@ Successfully used in
 [Lopez-Garcia et al., 2020]  Lopez-Garcia, P., Argote, D. L., & Thrun, M. C.: Projection-based Classification of Chemical Groups and Provenance Analysis of Archaeological Materials, IEEE Access, Vol. 8, pp. 152439-152451, DOI \doi{10.1109/ACCESS.2020.3016244}, 2020. 
 }
 
-
 \examples{
 data('Lsun3D')
 ##2d projection, without instant visualization of steps
@@ -78,9 +77,8 @@ library(GeneralizedUmatrix)#install if not installed
 GeneralizedUmatrix::plotTopographicMap(genUmatrixList$Umatrix,genUmatrixList$Bestmatches)
 ## Automatic Clustering
 # number of Cluster from dendrogram (PlotIt=TRUE) or visualization 
-Cls=DBSclustering(k=3, Lsun3D$Data, 
-
-genUmatrixList$Bestmatches, genUmatrixList$LC,PlotIt=FALSE)
+Cls=DBSclustering(k=3, Lsun3D$Data, genUmatrixList$Bestmatches,
+genUmatrixList$LC,PlotIt=FALSE)
 # Verification, often its better to mark Outliers manually
 
 GeneralizedUmatrix::plotTopographicMap(genUmatrixList$Umatrix,genUmatrixList$Bestmatches,Cls)
@@ -103,7 +101,7 @@ genUmatrixList$Bestmatches, Cls)
 \dontshow{
 data2=matrix(runif(n = 100),10,10)
 distance=as.matrix(dist(data2))
-res=Pswarm(distance,LC = c(10,12))
+res=Pswarm(distance, LC = c(10,12))
 Cls=DBSclustering(k=2, data2, res$ProjectedPoints, res$LC,PlotIt=FALSE)
 
 resUmatrix=GeneratePswarmVisualization(data2,res$ProjectedPoints,res$LC)

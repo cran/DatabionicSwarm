@@ -4,10 +4,9 @@
 Intern function for plotting during the Pswarm annealing process
 }
 \description{
-Intern function, generates a scatter plot of the progess of the Pswarm algorithm
-after every nash equlibirum. Every point symbolizes a Databot. If a prior
-classification is given (\code{Cls}) then the Databots have the colors defined
-by the class labels.}
+Intern function, generates a scatter plot of the progess of the Pswarm algorithm after every nash equlibirum.
+Every point symbolizes a Databot. If a prior classification is given (\code{Cls}) then the Databots have the colors defined by the class labels. 
+}
 \usage{
 plotSwarm(Points,Cls,xlab,ylab,main)
 }

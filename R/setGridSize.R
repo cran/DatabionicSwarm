@@ -1,52 +1,75 @@
-setGridSize=function(InputDistances,minp=0.01,maxp=0.99,alpha=4){
-#setGridSize(InputDistances)
-#setGridSize(InputDistances,minp=0.01,maxp=0.99)
-# sets the size of the grid, sometimes its required to look at the distribution and choose the optional arguents manually
-  #INPUT
-  # Inputdistaces[n,n]      distance matrix of input pace
-  # minp                    percentile of minum distanes for quantile
-  # map                     percentile of maximum distanes for quantile
-  # alpha										intern Parameter for Martas Swarm in Java, do not change!
-	#OUTPUT
-  # LC                      c(Lines,Columsn) such that L*C >4N and L*C<16N and sqrt(L^2+C^2)/1=MaxDost/MinDist
-  #                         also L%%2=0 and C%%4=0 (technical requirements for grid generation)
-  # author MT 03/16
-  #2. Version: Okt 2016 MT & FL
-  InputDistances=checkInputDistancesOrData(InputDistances)
+setGridSize=function(InputDistances, minp = 0.01, maxp = 0.99, alpha = 4, Verbose = 0){
+  # V = setGridSize(InputDistances)
+  # V = setGridSize(InputDistances, minp = 0.01, maxp = 0.99)
+  # Sets the size of the grid, sometimes its required to look at the
+  # distribution and choose the optional arguments manually
+  # 
+  # DESCRIPTION
+  # ???
+  # 
+  # INPUT
+  # Inputdistaces[n,n]      Distance matrix of input pace
+  # minp                    Percentile of minimum distances for quantile
+  # map                     Percentile of maximum distances for quantile
+  # alpha										Intern Parameter for Martas Swarm in Java, do not
+  #                         change!
+  # Verbose                 Degree of textual feedback: 0 = no feedback, 1 = feedback
+  # 
+	# OUTPUT
+  # LC                      c(Lines, Columns) such that L*C >4N and L*C<16N and
+  #                         sqrt(L^2+C^2)/1 = MaxDost/MinDist
+  #                         also L%%2=0 and C%%4=0
+  #                         (technical requirements for grid generation)
+  # 
+  # 1st Author: MT 03/2016
+  # 2. Version: Okt 2016 MT & FL
+  # 2nd Author: QS 2022
+  
+  InputDistances = checkInputDistancesOrData(InputDistances)
   
   if(!isSymmetric(unname(InputDistances))) {
     warning('InputDistances are not a symmetric distance matrix')
   }
-  InputDistancesTmp=InputDistances
+  InputDistancesTmp = InputDistances
   N = nrow(InputDistances) #InputDistances
-  if(is.null(N)) stop('Distance matrix has no rows')
+  if(is.null(N)){
+    stop('Distance matrix has no rows')
+  }
   InputDistances = as.numeric(InputDistances[upper.tri(InputDistances, diag = F)])
-  alpha = alpha #Anzahl moeglicher Sprungpositionen der DatenBots
-  p01 <- quantile(InputDistances, minp)
-  p99 <- quantile(InputDistances, maxp)
-  jpos = alpha * N #Verhaeltniss DataBots zu freien Gitterpositionen
+  alpha = alpha                                                                 # Number of possible jump position of a databot
+  p01   = quantile(InputDistances, minp)
+  p99   = quantile(InputDistances, maxp)
+  jpos  = alpha * N                                                             # Proportion databots to free grid positions
+  A     = p99 / p01                                                             # Proportion smallest and greatest distance
   
-  A = p99 / p01#Verhaeltnis der kleinsten zur groessten Distanz
   #Dieses verhaeltniss muss minimal im Gitter gewahrt bleiben
   #Verhaeltnis der kleinsten zur groessten Distanz=MaxDist/MinDist
   #C^4-A*C^2+16N^2>=0
+  
   C = suppressWarnings(sqrt(1/2)*sqrt(A ^ 2 + sqrt(A ^ 4  - (alpha ^ 2 * N ^ 2)/4)))#Columns
   
-  if(identical(C, numeric(0))) C=NaN
-	if(!is.finite(C)) C=NaN
-  #C=Re(sqrt(A^2/2+sqrt(A^4/4-16*N^2+0i)))#Columns
-  if (is.nan(C)) {#Wenn es keine reele Loesung gibt, approximiere
-    #Operator: An approximation of grid size was done.
-    print('Operator: An approximation of grid size was done.')
+  if(identical(C, numeric(0))){
+    C = NaN
+  }
+	if(!is.finite(C)){
+	  C = NaN
+	}
+  
+  # C = Re(sqrt(A^2/2+sqrt(A^4/4-16*N^2+0i)))    # Columns
+  
+  if(is.nan(C)){                                                                # If there is no real solution, approximate
+    if(Verbose >= 1){
+      print('Operator: An approximation of grid size was done.')                  # Operator: An approximation of grid size was done.
+    }
     solutions = matrix(ncol = 2, nrow = 0)
-    
     #### all candidates by first and third equation
     for (columns in 1:10000) {
       suppressWarnings({
         lines = sqrt(A ^ 2 - columns ^ 2)
       })
-      if (is.na(lines)) lines=NaN
-        
+      if(is.na(lines)){
+        lines=NaN
+      }
       ratio = columns / lines
       if (!is.nan(lines)) {
         ratio = columns / lines
@@ -65,16 +88,16 @@ setGridSize=function(InputDistances,minp=0.01,maxp=0.99,alpha=4){
       }else{
         warning('setGridSize failed to choose the right grid, choosing standard. Maybe Change quantiles minp and/or maxp')
         if (50 * 80 >= jpos) {
-          return(LC = c(50, 80))
+          return(LC = c(80, 50))
         } else if (100 * 160 >= jpos) {
-          return(LC = c(100, 160))
+          return(LC = c(160, 100))
         } else{
-          return(LC = c(200, 320))
+          return(LC = c(320, 200))
         }
       }
         
     }
-    colnames(solutions) = c('Lines', 'Columns')
+    colnames(solutions) = c('Columns', 'Lines')
     # filter everything that doesnt meet the second condition
     k = 1
     gitterausdehung = seq(from = 1, to = 500, by = 0.01)
@@ -143,8 +166,8 @@ setGridSize=function(InputDistances,minp=0.01,maxp=0.99,alpha=4){
       Lines = Lines + 2
     }
   }
-#Pruefe, dass Lines<Columns und die Nebenbedingungen des hexagonalen Gitters erfuellt sind
-  if (Lines > Columns) {
+  # Pruefe, dass Lines < Columns und die Nebenbedingungen des hexagonalen Gitters erfuellt sind
+  if(Lines > Columns){
     tmp = Columns
     Columns = Lines
     Lines = tmp
@@ -153,7 +176,10 @@ setGridSize=function(InputDistances,minp=0.01,maxp=0.99,alpha=4){
     Columns = Columns + 1
   while (Lines %% 2 != 0)
     Lines = Lines + 1
-  LC = c(Lines, Columns)
-  names(LC) = c('Lines', 'Columns')
+  
+  LC        = c(Lines, Columns)
+  names(LC) = c("Lines", "Columns")
+  
   return(LC)
 }
+

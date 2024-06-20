@@ -1,4 +1,4 @@
-ShortestGraphPathsC =function(Adj,Cost){
+ShortestGraphPathsC = function(Adj,Cost){
 # res=ShortestGraphPathsC(Adj, Cost) 
 # Shortest GraphPaths = geodesic distances
 # #INPUT
@@ -36,8 +36,7 @@ ShortestGraphPathsC =function(Adj,Cost){
   if(n!=ncol(Adj)) stop('ShortestGraphPathsC: Adj hast not equal number of rows and colums.')
   if(nrow(Cost)!=ncol(Cost)) stop('ShortestGraphPathsC: Cost hast not equal number of rows and colums.')
   
-  #this warning is always on but i dont know why as the clustering works
-  #if(!isSymmetric(unname(Adj))) warning('ShortestGraphPathsC: Adj is not symmetric, maybe a directed instead of an undirected graph was used?')
+  if(!isSymmetric(unname(Adj))) warning('ShortestGraphPathsC: Adj is not symmetric, maybe a directed instead of an undirected graph was used?')
   
   if(!isSymmetric(unname(Cost))) warning('ShortestGraphPathsC: Cost is not symmetric.')
   

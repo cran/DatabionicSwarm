@@ -1,11 +1,11 @@
-Delaunay4Points <- function(Points, IsToroid = TRUE,LC,PlotIt=FALSE,Gabriel=FALSE){
+Delaunay4Points <- function(Points, IsToroid = TRUE, LC, PlotIt=FALSE,Gabriel=FALSE){
   # Delaunay=Delaunay4Points(Points, IsToroid,Grid,PlotIt)$Delaunay
   # Calculates the adjacency matrix of the delaunay graph for bestmatches in tiled form if BMs are located on a toroid grid
   #
   # INPUT
-  # Points[1:n,1:3]            n by 3 matrix containing the BMKey, X and Y coordinates of the n Points
-  #                                 Points NEED NOT BE UNIQUE!
-  #                                 however, there is an edge in the Deaunay between duplicate points!  
+  # Points[1:n,1:3]    n by 3 matrix containing the BMKey, X and Y coordinates of the n Points
+  #                    Points NEED NOT BE UNIQUE!
+  #                    however, there is an edge in the Deaunay between duplicate points!  
   #
   # OPTIONAL
   # LC[1:2]                         A vector of length 2, containing the number of lines (y-points) and columns (x-points) of the Grid
@@ -18,33 +18,41 @@ Delaunay4Points <- function(Points, IsToroid = TRUE,LC,PlotIt=FALSE,Gabriel=FALS
   # 	     Die Unterfunktionen wurden fuer diesen einen Zweck noch nachoptimiert  
   # authors:  MT 03/16
   
-
   if(is.list(Points)){
     stop('Points is a list not a matrix')
   }
-  if(ncol(Points) > 3){
+  if(!(ncol(Points) %in% c(2,3))){
     stop('Points have wrong number of dimensions')
   }
-  if(ncol(Points) < 1){
-    stop('Points have wrong number of dimensions')
-  }
-  # if(ncol(Points)==2)
-  #   if(!is.null(Grid)) stop('Points have wrong number of dimensions or LC is not NULL')
+
   if(ncol(Points) == 3) {
     Points = Points[, 2:3]
+    message("Delaunay4Points.R: Points have dimensions 3 and therefore it is assumed the first column carries keys and the 2nd and 3rd columns the 2d projected points!")
   }
   
   if(missing(LC)){
-    IsToroid=FALSE
-	if(isTRUE(Gabriel))
-		warning("calcGabrielGraph2D: As Input argument *LC* is missing, IsToroid is set to FALSE.")
-	else
-		warning("Delaunay4Points: As Input argument *LC* is missing, IsToroid is set to FALSE.")
+    if(isTRUE(IsToroid)){
+      message("Delaunay4Points.R: IsToroid is not applicable without parameter LC defining the outline of the topographic grid.")
+    }
+    IsToroid = FALSE
+  	if(isTRUE(Gabriel)){
+  	  warning("Delaunay4Points.R: calcGabrielGraph2D requires input argument *LC* - IsToroid is set to FALSE.")
+  	}
+  	else{
+  	  warning("Delaunay4Points.R: As Input argument *LC* is missing, IsToroid is set to FALSE.")
+  	}
   }
+  
   if(!missing(LC)){
-    #shuffle so that it works for points
-    Grid=LC[c(2,1)]
-    #Grid=LC
+    Grid   = LC
+    tmpMax = apply(Points, 2, max)
+    if(!all(tmpMax <= Grid)){
+      if(!all(tmpMax[c(2,1)] <= Grid)){
+        stop("The projected points exceed their limits defined by LC")
+      }else{
+        Points = Points[,c(2,1)]
+      }
+    }
   }else{
     if (IsToroid){
       stop('LC has to be set, if toroid=TRUE')
@@ -54,6 +62,7 @@ Delaunay4Points <- function(Points, IsToroid = TRUE,LC,PlotIt=FALSE,Gabriel=FALS
     Xgrid = Grid[1]
     Ygrid = Grid[2]
   }
+  
   if(IsToroid){
     if(floor(max(Points[, 1])) > floor(Grid[1])){
       stop('Grid[1]>max(Points[,1])')
@@ -90,8 +99,8 @@ Delaunay4Points <- function(Points, IsToroid = TRUE,LC,PlotIt=FALSE,Gabriel=FALS
     UniqY            = UniqXY[, 2]
     DeldirOutput     = deldir::deldir(UniqX , UniqY)                            # Delaunay ausrechnen mit deldir
     PointsAndIndices = DeldirOutput$delsgs                                      # dadrin stecken die indices des Delaunays von -> Nach
-    FromInd          = PointsAndIndices$ind1                                    #  indices der Ausgangspunkte des Delanays
-    ToInd            = PointsAndIndices$ind2                                    #  indices der Endpunkte des Delanays
+    FromInd          = PointsAndIndices$ind1                                    # indices der Ausgangspunkte des Delanays
+    ToInd            = PointsAndIndices$ind2                                    # indices der Endpunkte des Delanays
     UniqDelaunay     = matrix(0, length(UniqX), length(UniqY))                  # Adjazenzmatrix initialisieren
     for (i in c(1:length(FromInd))) {
       UniqDelaunay[FromInd[i], ToInd[i]] = 1                                    # Only Direct neighbours A and B get an one from A to B
@@ -104,7 +113,9 @@ Delaunay4Points <- function(Points, IsToroid = TRUE,LC,PlotIt=FALSE,Gabriel=FALS
     if(sum(IsDuplicate)>1){ #Verstehe ich nicht, aber bei genau einem duplikat funktioniert es nicht
       Duplicates = which(IsDuplicate)
       UniqueNgbh = unique$Uniq2DatapointsInd[which(IsDuplicate)]
-      diag(Delaunay[Duplicates,UniqueNgbh]) = 1 
+      #diag(Delaunay[Duplicates,UniqueNgbh]) = 1
+      Delaunay[Duplicates,UniqueNgbh] = 1
+      Delaunay[UniqueNgbh,Duplicates] = 1
     }
     #erstmal fallback auf urspruengliche version
     if(sum(IsDuplicate)==1){
@@ -133,10 +144,12 @@ Delaunay4Points <- function(Points, IsToroid = TRUE,LC,PlotIt=FALSE,Gabriel=FALS
     TiledY = c(TiledY, TiledY, TiledY + Ygrid, TiledY + Ygrid)
     if(Gabriel){
       Delaunay = calcGabrielGraph2D(cbind(TiledX, TiledY), PlotIt = PlotIt)
+      if(!is.matrix(Delaunay)){
+        Delaunay = Delaunay[[1]]
+      }
     }else{
       Delaunay = DelaunayGraphMatrix_hlp(TiledX, TiledY, PlotIt = PlotIt)
     }
-    
     
     TiledDelaunay =  Delaunay
     n = nrow(Points)
@@ -155,8 +168,7 @@ Delaunay4Points <- function(Points, IsToroid = TRUE,LC,PlotIt=FALSE,Gabriel=FALS
     # X=TiledX
     # Y=TiledY
     
-  }
-  else{
+  }else{
     # MapSpace ist planar
     
     X = Points[, 1]

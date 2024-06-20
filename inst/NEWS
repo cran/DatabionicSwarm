@@ -1,3 +1,10 @@
+Version 2.0.0 (2023-10-30 CRAN)  
+   o Major update to efficient parallelized CPU version of the central algorithm Pswarm.
+
+Version 1.3.0 (2023-10-30 GitHub)   
+   o Major bugfix of Quirin Stier in calcStressC.cpp and PswarmCurrentRadiusC2botsPositive: swarm allows every databot to change position by checking a new index. Priorly, databot with index 0 was frozen in the projection.
+   o RelativeDifference can now be called silent and as a bugfix for vectors x and y optional parameter are now used
+   
 Version 1.2.1 (2023-10-10 CRAN)   
    o Moved RobustNormalization and RobustNorm_BackTrafo to DataVisualizations package available on CRAN
    o Corrected and extended UniquePoints   
@@ -9,7 +16,7 @@ Version 1.2.0 (2023-05-29 CRAN)
 
     
 Version 1.1.7 (2023-01-31 GitHub)
-    o Bugfix in UniquePoints
+    o Bugfix in UniquePoints by Quirin Stier
     o DBSclustering allows now to set title and xlab if dendrogramm is plottet
     o Delaunay4Points changed argument Grid to LC and within the function LC is converted to Grid
     
@@ -26,7 +33,7 @@ Version 1.1.5 (2020-10-28 CRAN)
 Version 1.1.4 (2020-02-29 GitHub)
     o Bugfix:  checkInputDistancesOrData, DBSclustering, Pswarm, setGridSize and ShortestGraphPathsC: using unname in isSymmetric to check correctly of symmetric distance matrix
     o checkInputDistancesOrData is now used in RobustNormalization and Pswarm correctly and indicates in which function the errors lies.
-    o Improvement: DBSclustering now provides the same colored branches (depending on frequency) as the topograpghcMap visualization with default colors. This makes a direct comparison of cluster structres more evident as it is clearly presented which projected point belongs to which high-dimensional point in the dendrogram.
+    o Improvement: DBSclustering now provides the same colored branches (depending on frequency) as the topographicMap visualization with default colors. This makes a direct comparison of cluster structres more evident as it is clearly presented which projected point belongs to which high-dimensional point in the dendrogram.
 
 Version 1.1.3 (2020-02-02 CRAN)
     o Bugfix: deleted dependcy rowr because it was taken down from CRAN.

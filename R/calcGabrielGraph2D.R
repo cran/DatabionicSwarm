@@ -1,8 +1,7 @@
-calcGabrielGraph2D=function(Data, PlotIt=F){
+calcGabrielGraph2D=function(Data,PlotIt=F){
   
   requireNamespace('spdep')
   requireNamespace('sp')
-  
   coords <- sp::coordinates(Data)
   Liste=spdep::gabrielneigh(coords)
 
@@ -17,6 +16,5 @@ calcGabrielGraph2D=function(Data, PlotIt=F){
     Adj[Liste$from[i],Liste$to[i]]=1
     Adj[Liste$to[i],Liste$from[i]]=1
   }
-
-  return(Gabriel=Adj)
+  return(list(Delaunay=Adj))
 }

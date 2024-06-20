@@ -1,4 +1,4 @@
-UniquePoints <- function(Datapoints, Cls, Eps=1e-10) {
+UniquePoints = function(Datapoints, Eps = 1e-10){
   # 
   # V <- UniquePoints(Datapoints)
   # return only the unique points in Datapoints
@@ -55,72 +55,18 @@ UniquePoints <- function(Datapoints, Cls, Eps=1e-10) {
   N           = dim(Datapoints)[1]
   DM          = as.matrix(parallelDist::parDist(Datapoints))
   
-  if(missing(Eps)){                 # ab dieser Distanz zwischen 2 punkten sind diese identisch
-    if(N < 1000){
-      Eps = 0.1
-      # Test:
-      DMInfo = DM[lower.tri(x = DM, diag = FALSE)]
-      Perc1  = percentiles(DMInfo, 1)
-      Eps    = round(Perc1, 2)
-    }else{
-      DMInfo = DM[lower.tri(x = DM, diag = FALSE)]
-      Perc1  = percentiles(DMInfo, 1)
-      #PR          = ParetoRadius(Data = DMInfo)
-      #Eps         = 3*PR
-      #message(paste0("UniquePoints: Automatically estimated epsilon 'eps' to four times of the Pareto Radius (", PR, ") = ", Eps))
-      Eps    = round(Perc1, 2)
-      message(paste0("UniquePoints: Automatically estimated epsilon 'eps' to one percent percentile ", Eps))
-    }
-  }
-  
-  if(missing(Cls)){
-    tmpVi        = hlp_UniquePoints(DM = DM, Datapoints = Datapoints, Eps = Eps)
-    Unique       = tmpVi$Unique
-    UniqueInd    = tmpVi$UniqueInd
-    Uniq2DataIdx = tmpVi$Uniq2DatapointsInd
-    IsDuplicate  = tmpVi$IsDuplicate
-    Eps          = tmpVi$Eps
-    # Edit
-    NewUniqueInd    = 1:length(UniqueInd)
-    NewUniq2DataIdx = unlist(lapply(Uniq2DataIdx, function(x, y){
-      which(y == x)
-    }, UniqueInd))
-    
-    return(list("Unique"             = Unique,
-                "UniqueInd"          = UniqueInd,
-                "Uniq2DatapointsInd" = Uniq2DataIdx,
-                "NewUniqueInd"       = NewUniqueInd,
-                "NewUniq2DataIdx"    = NewUniq2DataIdx,
-                "IsDuplicate"        = IsDuplicate,
-                "Eps"                = Eps))
-  }else{
-    UniqueCls    = unique(Cls)
-    NumCls       = length(UniqueCls)
-    Unique       = NULL
-    UniqueInd    = c()
-    Uniq2DataIdx = c()
-    #IsDuplicate  = rep(FALSE, N)
-    IsDuplicate  = rep(TRUE, N)
-    for(i in 1:NumCls){
-      tmpIdx = which(Cls == UniqueCls[i])
-      tmpVi  = hlp_UniquePoints(DM = DM, Datapoints = Datapoints[tmpIdx,], Eps = Eps)
-      tmpUniqIdx = tmpIdx[tmpVi$UniqueInd]
-      UniqueInd  = c(UniqueInd, tmpIdx[tmpVi$UniqueInd])
-      Uniq2DataIdx[tmpIdx]    = tmpIdx[tmpVi$Uniq2DatapointsInd]
-      #DuplIdx                 = setdiff(tmpIdx, tmpIdx[tmpVi$UniqueInd])
-      #IsDuplicate[DuplIdx]    = TRUE
-      IsDuplicate[tmpUniqIdx] = FALSE
-    }
-    Unique = Datapoints[UniqueInd, ]
-  }
-  
+  tmpVi        = hlp_UniquePoints(DM = DM, Datapoints = Datapoints, Eps = Eps)
+  Unique       = tmpVi$Unique
+  UniqueInd    = tmpVi$UniqueInd
+  Uniq2DataIdx = tmpVi$Uniq2DatapointsInd
+  IsDuplicate  = tmpVi$IsDuplicate
+  Eps          = tmpVi$Eps
   # Edit
   NewUniqueInd    = 1:length(UniqueInd)
   NewUniq2DataIdx = unlist(lapply(Uniq2DataIdx, function(x, y){
     which(y == x)
   }, UniqueInd))
-  
-  
+    
   return(list("Unique"             = Unique,
               "UniqueInd"          = UniqueInd,
               "Uniq2DatapointsInd" = Uniq2DataIdx,
@@ -143,8 +89,10 @@ hlp_UniquePoints = function(DM, Datapoints, Eps){
     # contained in an eps ngbh
     Cond1       = !(Draw %in% UniqueInd)
     if(length(UniqueInd) > 0){
-      tmpVar1   = as.matrix(dist(rbind(Datapoints[Draw,], Datapoints[UniqueInd,])))[1,]
-      tmpVar2   = tmpVar1[2:length(tmpVar1)]
+      #tmpVar1   = as.matrix(dist(rbind(Datapoints[Draw,], Datapoints[UniqueInd,])))[1,]
+      #tmpVar2   = tmpVar1[2:length(tmpVar1)]
+      tmpVar1   = as.matrix(DM[Draw, UniqueInd])
+      tmpVar2   = tmpVar1[1:length(tmpVar1)]
       Cond2     = all(tmpVar2 >= Eps)
     }else{
       Cond2     = TRUE
@@ -152,8 +100,7 @@ hlp_UniquePoints = function(DM, Datapoints, Eps){
     if(all(Cond1, Cond2)){
       Ngbh      = get_indices_smaller_than_eps(Draw, DM, Eps)                   # Get eps ngbh of sample
       UniqueInd = c(UniqueInd, Draw)                                            # Add sample to unique index
-      CutOut    = c(Draw, Ngbh)                                                 # 
-      Idx       = setdiff(Idx, CutOut)                                          # Remove draw with its ngbh from index  
+      Idx       = setdiff(Idx, c(Draw, Ngbh))                                   # Remove draw with its ngbh from index  
     }else{
       Idx       = setdiff(Idx, Draw)
     }
@@ -167,7 +114,12 @@ hlp_UniquePoints = function(DM, Datapoints, Eps){
   Duplicates               = setdiff(1:N, UniqueInd)
   NumDupl                  = length(Duplicates)
   tmpVar1                  = DM[Duplicates,UniqueInd]
-  tmpRes                   = apply(tmpVar1, 1, function(x){order(x)[2]})
+  if(is.vector(tmpVar1) | !is.matrix(tmpVar1)){
+    tmpRes                 = order(tmpVar1)[2]
+  }else{
+    tmpRes                 = apply(tmpVar1, 1, function(x){order(x)[2]})
+  }
+  
   Uniq2DataIdx[Duplicates] = UniqueInd[as.numeric(tmpRes)]
   Unique                   = Datapoints[UniqueInd,]
   IsDuplicate[Duplicates]  = TRUE
@@ -183,15 +135,3 @@ get_indices_smaller_than_eps = function(Draw, DM, Eps){
   return(setdiff(as.numeric(which(DM[Draw,] < Eps)), Draw))
 }
 
-percentiles=function (x, y = c(1:100)){
-  ss <- sort(na.last = T, x)
-  n <- length(x)
-  i <- n/100
-  index <- t(seq(i, n, i))
-  index <- round(index)
-  index <- index[1:100]
-  nullInd <- which(index < 1)
-  index[nullInd] <- 1
-  p <- ss[index]
-  return(p[y])
-}
